@@ -1,0 +1,75 @@
+version: '3.3'
+
+services:
+  httpd:  
+    build: ./html
+    ports:
+      - 80:80
+    restart: always
+    volumes:
+      - ./src:/var/www/html
+    depends_on:
+     - mysql  
+    networks:
+      - frontend-network
+      - backend-network
+
+  netdata:
+    image: netdata/netdata
+    ports:
+      - 19999:19999
+    restart: unless-stopped
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - apparmor:unconfined
+    volumes:
+      - netdataconfig:/etc/netdata
+      - netdatalib:/var/lib/netdata
+      - netdatacache:/var/cache/netdata
+      - /etc/passwd:/host/etc/passwd:ro
+      - /etc/group:/host/etc/group:ro
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /etc/os-release:/host/etc/os-release:ro
+    networks:
+      - backend-network
+
+  mysql:
+    image: mysql:8.0
+    environment:
+     - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+     - MYSQL_DATABASE=${MYSQL_DATABASE}
+     - MYSQL_USER=${MYSQL_USER}
+     - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    restart: always
+    volumes:
+      - db:/var/lib/mysql
+      - ./sql:/docker-entrypoint-initdb.d
+    networks:
+      - backend-network
+
+  phpmyadmin:
+    image: phpmyadmin:5
+    ports:
+      - 8080:80
+    environment:
+     - PMA_HOST=mysql
+    restart: always
+    depends_on:
+      - mysql 
+    networks:
+      - frontend-network
+      - backend-network
+      
+
+volumes:
+  db:
+  ssl_certs_data:
+  netdataconfig:
+  netdatalib:
+  netdatacache:
+
+networks:
+  frontend-network:
+  backend-network:
