@@ -1,18 +1,22 @@
 version: '3.3'
 
 services:
-  httpd:  
-    build: ./html
-    ports:
-      - 80:80
-    restart: always
-    volumes:
-      - ./src:/var/www/html
-    depends_on:
-     - mysql  
-    networks:
-      - frontend-network
-      - backend-network
+  nginx:
+	image: nginx:1.21
+	ports:
+	  - 80:80
+	volumes:
+	  - ./nginx:/etc/nginx/conf.d
+	  - ./src:/var/www/html
+	depends_on:
+	  - php-fpm
+   
+  php-fpm:
+    build: ./php-fpm
+	volumes:
+	   - ./src:/var/www/html
+	depends_on:
+	  - mysql
 
   netdata:
     image: netdata/netdata
