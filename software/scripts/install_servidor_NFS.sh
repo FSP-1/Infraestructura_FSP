@@ -1,9 +1,7 @@
 #---------------------------------------------------------------------------------
 # Instalacíon del la Sincronización del contenido estático en la capa de Front-End
 #---------------------------------------------------------------------------------
-#
-mkdir /var/www/
-mkdir /var/www/html
+
 # Instalamos el NFS servidor
 
 apt-get install nfs-kernel-server -y

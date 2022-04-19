@@ -21,9 +21,9 @@ apt install nginx -y
 
 
 # Copiamos el fichero de Configuración de Nginx
-sed -i "s/172.31.92.55/$IP_SERVER/" /home/ubuntu/iaw_examen/software/conf/default_balancer
-sed -i "s/172.31.88.25/$IP_SERVER2/" /home/ubuntu/iaw_examen/software/conf/default_balancer
-cp conf/default_balancer /etc/nginx/sites-available/default
+sed -i "s/172.31.92.55/$IP_SERVER/" ./conf/default_balancer
+sed -i "s/172.31.88.25/$IP_SERVER2/" ./conf/default_balancer
+cp ./conf/default_balancer /etc/nginx/sites-available/default
 
 
 # Reiniciamos el servicio
