@@ -19,7 +19,7 @@ apt install zip -y
 #---------------------------------------------
 
 # Cambiamos el fichero nrpe.cfg para permitir el acceso al servidor Nagios añadiendo su ip
-cp ./conf/nrpe.cfg /etc/nagios3/nrpe.cfg
+cp ./conf/nrpe.cfg /etc/nagios/nrpe.cfg
 
 # Reiniciamos el servicio para que los cambios se apliquen
 systemctl  restart nagios-nrpe-server
@@ -56,7 +56,7 @@ define host{
                         }" >> /etc/nagios3/conf.d/host.cfg
 
 # Reiniciamos el servicio para que los cambios se apliquen
-systemctl  restart nagios-nrpe-server
+/etc/init.d/nagios3 restart
 
 
 #---------------------------------------------
@@ -89,7 +89,7 @@ cp ./conf/commands.cfg /etc/nagios3/commands.cfg
 
 #---------------------------------------------
 
-# Modificamos el fichero ssmtp.conf para poder moterizar los servicios de las maquina remotamente
+# Modificamos el fichero servicios-fisico.cfg para poder moterizar los servicios de las maquina remotamente
 cp ./conf/servicios-fisico.cfg /etc/nagios3/conf.d/servicios-fisico.cfg
 
 
@@ -103,14 +103,14 @@ cp ./conf/servicios-fisico.cfg /etc/nagios3/conf.d/servicios-fisico.cfg
 
 apt install ssmtp -y
 
-# Modificamos el fichero servicios-fisico.cfg para poder enviarnos mensajes a nuestras cuentas electrónicas
+# Modificamos el fichero ssmtp.conf para poder enviarnos mensajes a nuestras cuentas electrónicas
 cp ./conf/ssmtp.conf /etc/ssmtp/ssmtp.conf
 
 # Modificamos el fichero contacts_nagios2.cfg para poder enviarnos mensajes a nuestras cuentas electrónicas
 cp ./conf/contacts_nagios2.cfg /etc/nagios3/conf.d/contacts_nagios2.cfg
 
 # Reiniciamos el servicio para que los cambios se apliquen
-systemctl  restart nagios-nrpe-server
+/etc/init.d/nagios3 restart
 
 
 #---------------------------------------------
@@ -123,4 +123,4 @@ systemctl  restart nagios-nrpe-server
 cp ./conf/rend.cfg /etc/nagios3/conf.d/rend.cfg
 
 # Reiniciamos el servicio para que los cambios se apliquen
-systemctl  restart nagios-nrpe-server
+/etc/init.d/nagios3 restart
