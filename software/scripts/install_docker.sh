@@ -6,7 +6,7 @@ USER_NAME=ubuntu
  curl -fsSL https://get.docker.com -o get-docker.sh
 
 # Ejecutamos el script
- seh get-docker.sh
+ sudo get-docker.sh
 
  
 

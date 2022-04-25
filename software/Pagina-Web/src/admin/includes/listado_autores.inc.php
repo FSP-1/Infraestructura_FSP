@@ -7,7 +7,7 @@
   $connection = Connect( $config['database']);
 
   # Buscamos todas las imagenes ordenadas por orden de inserccion
-  $sql  = "select * from authors order by name asc";
+  $sql  = "select * from users order by name asc";
 
   $rows = ExecuteQuery( $sql, $connection);
 

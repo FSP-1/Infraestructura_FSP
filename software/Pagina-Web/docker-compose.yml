@@ -69,7 +69,6 @@ services:
 
 volumes:
   db:
-  ssl_certs_data:
   netdataconfig:
   netdatalib:
   netdatacache:

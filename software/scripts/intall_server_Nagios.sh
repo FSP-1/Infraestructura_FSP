@@ -32,28 +32,7 @@ systemctl  restart nagios-nrpe-server
 #---------------------------------------------
 
 # Creamos el fichero host.cfg y le añadimos lo siguienye
-touch /etc/nagios3/conf.d/host.cfg
-echo "
-define host{
-                                use              generic-host
-                                host_name        Observer 
-                                alias            Observer
-                                address          192.168.1.84
-                        }
-                        define host{
-                               use               generic-host
-                             u  host_name        Brother-ahs
-                               alias             Brother-ahs
-                               address           192.168.1.67
-                               parents           Observer
-                        }
-                        define host{
-                               use               generic-host
-                               host_name         Brother-ember
-                               alias             Brother-ember
-                               address           192.168.1.69
-                               parents           Observer
-                        }" >> /etc/nagios3/conf.d/host.cfg
+ cp ./conf/host.cfg /etc/nagios3/conf.d/host.cfg
 
 # Reiniciamos el servicio para que los cambios se apliquen
 /etc/init.d/nagios3 restart
@@ -113,14 +92,4 @@ cp ./conf/contacts_nagios2.cfg /etc/nagios3/conf.d/contacts_nagios2.cfg
 /etc/init.d/nagios3 restart
 
 
-#---------------------------------------------
 
-# Controlar la carga de CPU, usuarios logueados y procesos
-
-#---------------------------------------------
-
-# Modificamos el fichero rend.cfg para ver la cpu, user login y procesos que haya en las maquinas
-cp ./conf/rend.cfg /etc/nagios3/conf.d/rend.cfg
-
-# Reiniciamos el servicio para que los cambios se apliquen
-/etc/init.d/nagios3 restart

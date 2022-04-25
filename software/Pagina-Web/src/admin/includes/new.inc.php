@@ -41,19 +41,6 @@
             </div>
            
           </div>
-   
-          
-          <div class="form-group row">
-            <label for="enabled" class="col-lg-2 col-form-label">Activado</label>
-             
-              <div class="col-lg-3 text-lett">
-                <input type="checkbox"  id="enabled" name="enabled">
-            </div>
-            
-          </div>
-
-
-
           <br><br>
           <button type="submit" class="btn btn-primary">Enviar</button>
           <br><br>

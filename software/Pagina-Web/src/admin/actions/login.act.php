@@ -12,7 +12,7 @@
   # conectamos con la base de datos
   $connection = Connect( $config['database']);
 
-  $sql  = "select * from authors where email = '".$email_login."' And password = '".$login_password."'";
+  $sql  = "select * from users where email = '".$email_login."' And password = '".$login_password."'";
 
 
   $rows = ExecuteQuery( $sql, $connection);

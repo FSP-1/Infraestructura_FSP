@@ -12,13 +12,13 @@
     <title>Thumbnail Gallery - Start Bootstrap Template</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="/assets/bootstrap/css/thumbnail-gallery.css" rel="stylesheet">
+    <link href="./assets/bootstrap/css/thumbnail-gallery.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="/assets/css/estilos.css" rel="stylesheet">
+    <link href="./assets/css/estilos.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -40,11 +40,6 @@
 
         switch ( $page) 
         {
-          case 'listado':
-            include "actions/listado.act.php";
-            include "includes/listado.inc.php";
-            break;
-
           case 'autores':
             include "includes/listado_autores.inc.php";
             break;
@@ -53,10 +48,6 @@
             include "includes/new_foto.inc.php";
             break;
 
-          case 'edit':
-            include "includes/edit_foto.inc.php";
-            break;
-          
           default:
             # code...
             break;

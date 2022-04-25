@@ -23,7 +23,7 @@
   # conectamos con la base de datos
   $connection = Connect( $config['database']);
 
-  $sql  = "insert into authors( name, email, password, enabled) values( '".$display_name."', '".$email."', '".$password."', ".$enabled.")";
+  $sql  = "insert into users( name, email, password) values( '".$display_name."', '".$email."', '".$password."', ".$enabled.")";
 
   $return = Execute( $sql, $connection);
 

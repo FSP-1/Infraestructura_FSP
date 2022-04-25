@@ -13,17 +13,9 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav pull-right">
-              
-              <li>
-                  <a href="home.php?page=listado">[Listado]</a>
-              </li>
               <li>
                   <a href="home.php?page=autores">[Listado autores]</a>
               </li>
-              <li>
-                  <a href="home.php?page=new">[Añadir foto]</a>
-              </li>
-
           </ul>
       </div>
       <!-- /.navbar-collapse -->
