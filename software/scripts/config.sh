@@ -1,4 +1,4 @@
-# Balancer #
+# All vars o en los roles 
 IP_SERVER=172.31.92.55
 IP_SERVER2=172.31.88.25
 

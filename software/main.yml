@@ -1,0 +1,9 @@
+---
+hosts: all
+# Roles
+Nagios # Servidor y Cliente Nagios
+Ngnix # Check
+NFS # Servidor y Cliente NFS
+Balancer # Blanceador
+Docker_Compose # Twins Brothers
+Update # Twins Brothers, Blanceador,
