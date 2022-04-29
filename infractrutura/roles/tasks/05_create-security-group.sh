@@ -32,6 +32,12 @@ aws ec2 create-security-group \
     --port 2049 \
     --cidr 0.0.0.0/0
 
+ # Cramos una regla de accesso   NRPE
+    aws ec2 authorize-security-group-ingress \
+    --group-name Brothers \
+    --protocol tcp \
+    --port 5666 \
+    --cidr 0.0.0.0/0
 
 # --------------------------------------------
 
@@ -61,6 +67,12 @@ aws ec2 create-security-group \
     --port 443 \
     --cidr 0.0.0.0/0
 
+ # Cramos una regla de accesso   NRPE
+    aws ec2 authorize-security-group-ingress \
+    --group-name Balancer-sg \
+    --protocol tcp \
+    --port 5666 \
+    --cidr 0.0.0.0/0
 
     # --------------------------------------------
 
@@ -113,4 +125,31 @@ aws ec2 create-security-group \
     --port 443 \
     --cidr 0.0.0.0/0
 
+ # Cramos una regla de accesso   NRPE
+    aws ec2 authorize-security-group-ingress \
+    --group-name nagios \
+    --protocol tcp \
+    --port 5666 \
+    --cidr 0.0.0.0/0
+
 # --------------------------------------------
+
+# Grupo de seguridad para Ansible
+aws ec2 create-security-group \
+    --group-name ansible \
+    --description "Reglas para el backup"
+
+    # Cramos una regla de accesso   SSH
+    aws ec2 authorize-security-group-ingress \
+    --group-name ansible \
+    --protocol tcp \
+    --port 22 \
+    --cidr 0.0.0.0/0
+
+ # Cramos una regla de accesso   NRPE
+    aws ec2 authorize-security-group-ingress \
+    --group-name ansible \
+    --protocol tcp \
+    --port 5666 \
+    --cidr 0.0.0.0/0
+
