@@ -9,18 +9,19 @@ export AWS_PAGER=""
 AMI_ID=ami-0472eef47f816e45d
 COUNT=1
 INTANCE_TYPE=t2.small
-KEY_NAME=IAW
+KEY_NAME=IAW2
 SECURIRY_GROUP=Brothers
 SECURIRY_GROUP3=Balancer-sg
 SECURIRY_GROUP4=nfs-sg
 SECURIRY_GROUP5=nagios
+SECURIRY_GROUP6=ansible
 
 INSTANCE_NAME_WWW1=Ash-Twin
 INSTANCE_NAME_WWW2=Ember_Twin
 INSTANCE_NAME_BALANCER=Balancer
 INSTANCE_NAME_SERVER=nfs_server
 INSTANCE_NAME_NAGIOS=Nagios_server
-
+INSTANCE_NAME_ANSIBLE=Ansible
 
 # -----------------------------------
 
@@ -63,7 +64,7 @@ aws ec2 run-instances \
     --security-groups $SECURIRY_GROUP4 \
     --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$INSTANCE_NAME_SERVER}]"
 
-# PHP Server
+# Nagios Server
 aws ec2 run-instances \
     --image-id $AMI_ID \
     --count $COUNT \
@@ -71,4 +72,12 @@ aws ec2 run-instances \
     --key-name $KEY_NAME \
     --security-groups $SECURIRY_GROUP5 \
     --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$INSTANCE_NAME_NAGIOS}]"
-
+    
+# Ansible Server
+aws ec2 run-instances \
+    --image-id $AMI_ID \
+    --count $COUNT \
+    --instance-type $INTANCE_TYPE \
+    --key-name $KEY_NAME \
+    --security-groups $SECURIRY_GROUP6 \
+    --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$INSTANCE_NAME_ANSIBLE}]"
