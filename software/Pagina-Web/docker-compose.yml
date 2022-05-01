@@ -1,25 +1,22 @@
 version: '3.3'
 
 services:
-  nginx:
-	image: nginx:1.21
-	ports:
-	  - 80:80
-	volumes:
-	  - ./nginx:/etc/nginx/conf.d
-	  - ./src:/var/www/html
-	depends_on:
-	  - php-fpm
-   
-  php-fpm:
-    build: ./php-fpm
-	volumes:
-	   - ./src:/var/www/html
-	depends_on:
-	  - mysql
+  httpd:  
+    build: ./html
+    ports:
+      - 80:80
+    restart: always
+    volumes:
+      - ./src:/var/www/html
+    depends_on:
+     - mysql  
+    networks:
+      - frontend-network
+      - backend-network
 
   netdata:
     image: netdata/netdata
+    container_name: netdata
     ports:
       - 19999:19999
     restart: unless-stopped
@@ -36,9 +33,10 @@ services:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
       - /etc/os-release:/host/etc/os-release:ro
-    networks:
-      - backend-network
-
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment: 
+      - PGID=998
+     
   mysql:
     image: mysql:8.0
     environment:
@@ -65,7 +63,8 @@ services:
     networks:
       - frontend-network
       - backend-network
-      
+
+
 
 volumes:
   db:

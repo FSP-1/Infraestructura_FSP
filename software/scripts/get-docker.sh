@@ -19,7 +19,7 @@ set -e
 #
 # Git commit from https://github.com/docker/docker-install when
 # the script was uploaded (Should only be modified by upload job):
-SCRIPT_COMMIT_SHA="93d2499759296ac1f9c510605fef85052a2c32be"
+SCRIPT_COMMIT_SHA="0221adedb4bcde0f3d18bddda023544fc56c29d1"
 
 # strip "v" prefix if present
 VERSION="${VERSION#v}"
@@ -401,6 +401,7 @@ do_install() {
 				$sh_c 'apt-get update -qq >/dev/null'
 				$sh_c "DEBIAN_FRONTEND=noninteractive apt-get install -y -qq $pre_reqs >/dev/null"
 				$sh_c "curl -fsSL \"$DOWNLOAD_URL/linux/$lsb_dist/gpg\" | gpg --dearmor --yes -o /usr/share/keyrings/docker-archive-keyring.gpg"
+				$sh_c "chmod a+r /usr/share/keyrings/docker-archive-keyring.gpg"
 				$sh_c "echo \"$apt_repo\" > /etc/apt/sources.list.d/docker.list"
 				$sh_c 'apt-get update -qq >/dev/null'
 			)
@@ -430,16 +431,18 @@ do_install() {
 				fi
 			fi
 			(
-				pkgs=""
+				pkgs="docker-ce${pkg_version%=}"
 				if version_gte "18.09"; then
 						# older versions don't support a cli package
 						pkgs="$pkgs docker-ce-cli${cli_pkg_version%=}"
+				fi
+				if version_gte "20.10"; then
+						pkgs="$pkgs docker-compose-plugin"
 				fi
 				if version_gte "20.10" && [ "$(uname -m)" = "x86_64" ]; then
 						# also install the latest version of the "docker scan" cli-plugin (only supported on x86 currently)
 						pkgs="$pkgs docker-scan-plugin"
 				fi
-				pkgs="$pkgs docker-ce${pkg_version%=}"
 				if ! is_dry_run; then
 					set -x
 				fi
@@ -516,17 +519,26 @@ do_install() {
 				fi
 			fi
 			(
+				pkgs="docker-ce$pkg_version"
+				if version_gte "18.09"; then
+					# older versions don't support a cli package
+					if [ -n "$cli_pkg_version" ]; then
+						pkgs="$pkgs docker-ce-cli-$cli_pkg_version"
+					else
+						pkgs="$pkgs docker-ce-cli"
+					fi
+				fi
+				if version_gte "20.10" && [ "$(uname -m)" = "x86_64" ]; then
+						# also install the latest version of the "docker scan" cli-plugin (only supported on x86 currently)
+						pkgs="$pkgs docker-scan-plugin"
+				fi
+				if version_gte "20.10"; then
+					pkgs="$pkgs docker-compose-plugin docker-ce-rootless-extras$pkg_version"
+				fi
 				if ! is_dry_run; then
 					set -x
 				fi
-				# install the correct cli version first
-				if [ -n "$cli_pkg_version" ]; then
-					$sh_c "$pkg_manager install -y -q docker-ce-cli-$cli_pkg_version"
-				fi
-				$sh_c "$pkg_manager install -y -q docker-ce$pkg_version"
-				if version_gte "20.10"; then
-					$sh_c "$pkg_manager install -y -q docker-ce-rootless-extras$pkg_version"
-				fi
+				$sh_c "$pkg_manager install -y -q $pkgs"
 			)
 			echo_docker_as_nonroot
 			exit 0
@@ -591,17 +603,21 @@ do_install() {
 				fi
 			fi
 			(
+				pkgs="docker-ce$pkg_version"
+				if version_gte "18.09"; then
+					if [ -n "$cli_pkg_version" ]; then
+						pkgs="$pkgs docker-ce-cli-$cli_pkg_version"
+					else
+						pkgs="$pkgs docker-ce-cli"
+					fi
+				fi
+				if version_gte "20.10"; then
+					pkgs="$pkgs docker-compose-plugin docker-ce-rootless-extras$pkg_version"
+				fi
 				if ! is_dry_run; then
 					set -x
 				fi
-				# install the correct cli version first
-				if [ -n "$cli_pkg_version" ]; then
-					$sh_c "zypper install -y  docker-ce-cli-$cli_pkg_version"
-				fi
-				$sh_c "zypper install -y docker-ce$pkg_version"
-				if version_gte "20.10"; then
-					$sh_c "zypper install -y docker-ce-rootless-extras$rootless_pkg_version"
-				fi
+				$sh_c "zypper install -y -q $pkgs"
 			)
 			echo_docker_as_nonroot
 			exit 0
