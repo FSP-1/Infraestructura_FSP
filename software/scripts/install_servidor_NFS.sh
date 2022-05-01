@@ -7,7 +7,7 @@
 apt-get install nfs-kernel-server -y
 
 #
- echo "/Practica_FSP/software/Pagina-Web/src 172.31.0.0/16(rw,sync,no_root_squash,no_subtree_check)" > /etc/exports
+ echo "/Practica_FSP/software/Pagina-Web 172.31.0.0/16(rw,sync,no_root_squash,no_subtree_check)" > /etc/exports
 
 # 
 systemctl restart nfs-kernel-server
