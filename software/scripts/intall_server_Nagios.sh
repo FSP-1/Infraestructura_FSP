@@ -1,11 +1,27 @@
 #!/bin/bash
+# Variables de configuración 
+#----------------------------------------------------
+source config.sh
+#----------------------------------------------------
+
+# Actualizamos el sistema
+apt update
+# apt upgrade -y
+
+# Instalamos El servidor NGINX
+apt install nginx -y
+
+# Configuración de Nginx
+cp ../conf/check.conf /etc/nginx/sites-available/default
+systemctl restart nginx
+
 #Instalamos ssh y el gestor de base de datos mongoDB 
 apt install ssh -y
 apt install mongodb -y
 
-#Instalamos nagios 3
-apt install nagios 3 -y
-
+#Instalamos nagios 4
+apt install nagios4 -y
+exit;
 # Instalamos los plugins nagios para que nos permita monitorizar los parámetros de las máquinas remotas.
 apt install nagios-nrpe-server nagios-nrpe-plugin nagios-plugins -y
 
