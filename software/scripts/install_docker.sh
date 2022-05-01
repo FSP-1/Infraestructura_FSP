@@ -22,7 +22,7 @@ USER_NAME=ubuntu
 
   # Actualizamos el grupo Docker
 
-#  newgrp docker
+newgrp docker
 
 #Instalamos docker 
  apt install docker-compose -y

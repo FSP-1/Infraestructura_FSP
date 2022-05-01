@@ -39,6 +39,12 @@ aws ec2 create-security-group \
     --port 5666 \
     --cidr 0.0.0.0/0
 
+ # Cramos una regla de accesso  Netdata
+    aws ec2 authorize-security-group-ingress \
+    --group-name Brothers \
+    --protocol tcp \
+    --port 19999 \
+    --cidr 0.0.0.0/0
 # --------------------------------------------
 
 # Grupo de seguridad para Balancer
