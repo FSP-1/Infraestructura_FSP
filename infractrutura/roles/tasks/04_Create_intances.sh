@@ -15,6 +15,7 @@ SECURIRY_GROUP3=Balancer-sg
 SECURIRY_GROUP4=nfs-sg
 SECURIRY_GROUP5=nagios
 SECURIRY_GROUP6=ansible
+SECURIRY_GROUP7=mysql
 
 INSTANCE_NAME_WWW1=Ash-Twin
 INSTANCE_NAME_WWW2=Ember_Twin
@@ -22,6 +23,7 @@ INSTANCE_NAME_BALANCER=Balancer
 INSTANCE_NAME_SERVER=nfs_server
 INSTANCE_NAME_NAGIOS=Nagios_server
 INSTANCE_NAME_ANSIBLE=Ansible
+INSTANCE_NAME_MYSQL=Mysql
 
 # -----------------------------------
 
@@ -81,3 +83,12 @@ aws ec2 run-instances \
     --key-name $KEY_NAME \
     --security-groups $SECURIRY_GROUP6 \
     --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$INSTANCE_NAME_ANSIBLE}]"
+
+# Mysql Server
+aws ec2 run-instances \
+    --image-id $AMI_ID \
+    --count $COUNT \
+    --instance-type $INTANCE_TYPE \
+    --key-name $KEY_NAME \
+    --security-groups $SECURIRY_GROUP7 \
+    --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$INSTANCE_NAME_MYSQL}]"

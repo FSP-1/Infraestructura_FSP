@@ -159,3 +159,22 @@ aws ec2 create-security-group \
     --port 5666 \
     --cidr 0.0.0.0/0
 
+# ------------------------------------------------
+# Grupo de seguridad para mysql
+aws ec2 create-security-group \
+    --group-name backup-sg \
+    --description "Reglas para el backup"
+
+    # Cramos una regla de accesso   SSH
+    aws ec2 authorize-security-group-ingress \
+    --group-name mysql \
+    --protocol tcp \
+    --port 22 \
+    --cidr 0.0.0.0/0
+
+     # Cramos una regla de accesso   Mysql
+    aws ec2 authorize-security-group-ingress \
+    --group-name mysql \
+    --protocol tcp \
+    --port 3306 \
+    --cidr 0.0.0.0/0
