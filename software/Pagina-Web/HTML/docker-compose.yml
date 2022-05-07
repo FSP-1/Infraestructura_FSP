@@ -8,8 +8,6 @@ services:
     restart: always
     volumes:
       - ./src:/var/www/html
-    depends_on:
-     - mysql  
     networks:
       - frontend-network
       - backend-network
@@ -36,38 +34,10 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment: 
       - PGID=998
-     
-  mysql:
-    image: mysql:8.0
-    environment:
-     - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-     - MYSQL_DATABASE=${MYSQL_DATABASE}
-     - MYSQL_USER=${MYSQL_USER}
-     - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-    restart: always
-    volumes:
-      - db:/var/lib/mysql
-      - ./sql:/docker-entrypoint-initdb.d
-    networks:
-      - backend-network
-
-  phpmyadmin:
-    image: phpmyadmin:5
-    ports:
-      - 8080:80
-    environment:
-     - PMA_HOST=mysql
-    restart: always
-    depends_on:
-      - mysql 
-    networks:
-      - frontend-network
-      - backend-network
 
 
 
 volumes:
-  db:
   netdataconfig:
   netdatalib:
   netdatacache:
