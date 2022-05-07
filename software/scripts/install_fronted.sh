@@ -17,7 +17,7 @@ apt install nginx -y
 
 
 # Configuración de Nginx
-cp ./conf/check.conf /etc/nginx/sites-available/check.conf
+cp ../conf/check.conf /etc/nginx/sites-available/check.conf
 systemctl restart nginx
 
 

@@ -1,17 +1,61 @@
 #!/bin/bash
+# Variables de configuración 
+#----------------------------------------------------
+source config.sh
+#----------------------------------------------------
+
+# Actualizamos el sistema
+apt update
+# apt upgrade -y
+
+# Instalamos El servidor NGINX
+#apt install nginx -y
+
+# Configuración de Nginx
+#cp ../conf/check.conf /etc/nginx/sites-available/default
+#systemctl restart nginx
+
 #Instalamos ssh y el gestor de base de datos mongoDB 
 apt install ssh -y
 apt install mongodb -y
 
-#Instalamos nagios 3
-apt install nagios 3 -y
+#Instalamos nagios 4
+apt install wget unzip vim curl gcc openssl build-essential libgd-dev libssl-dev libapache2-mod-php php-gd php apache2 -y
+wget https://assets.nagios.com/downloads/nagioscore/releases/nagios-4.4.6.tar.gz
+tar zxvf nagios-4.4.6.tar.gz 
+mv nagios-4.4.6 /tmp/nagios4/
+rm -rf nagios-4.4.6.tar.gz
+cd /tmp/nagios4/
+./configure --with-httpd-conf=/etc/apache2/sites-enabled
+make all
+useradd nagios
+make install
+make install-init
+make install-commandmode
+systemctl enable nagios.service
+make install-config
+make install-webconf
+htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
+a2enmod cgi
+systemctl restart apache2
+systemctl start nagios
+systemctl enable nagios
+exit;
 
 # Instalamos los plugins nagios para que nos permita monitorizar los parámetros de las máquinas remotas.
-apt install nagios-nrpe-server nagios-nrpe-plugin nagios-plugins -y
+apt install libmcrypt-dev make libssl-dev bc gawk dc build-essential snmp libnet-snmp-perl gettext libldap2-dev smbclient fping libmysqlclient-dev libdbi-dev -y
+cd /tmp/
+wget https://github.com/nagios-plugins/nagios-plugins/archive/release-2.3.3.tar.gz 
+tar zxvf release-2.3.3.tar.gz 
+mv nagios-plugins-release-2.3.3  /tmp/nagios-plugin/
+rm -rf release-2.3.3.tar.gz
+cd /tmp/nagios-plugin/
+./tools/setup 
+./configure 
+make
+make install
 
-#Instalamos zip
-apt install zip -y
-
+sudo systemctl restart nagios.service
 #---------------------------------------------
 
 # Configuraciones de ficheros nagios para el funcionamiento de la monitorización
@@ -44,19 +88,7 @@ systemctl  restart nagios-nrpe-server
 
 #---------------------------------------------
 
-# Primero instalamos los plugins necesarios, que descargaremos de la siguiente cuenta de github:
-wget --no-check-certificate https://github.com/mzupan/nagios-plugin-mongodb/archive/master.zip
-unzip master.zip -d nagios-plugin-mongodb
-rm master.zip
-apt-get install python-dev python-pip
-pip install pymongo
-mv nagios-plugin-mongodb/check_mongodb.py /etc/nagios-plugins/config/
 
-# Luego intalamos lo drivers que también lo descargaremos de la siguiente cuenta de github
-wget --no-check-certificate https://github.com/mongodb/mongo-python-driver/archive/master.zip
-unzip master.zip
-cd mongo-python-driver-master/
-python setup.py install
 
 # Modificamos el fichero commands.cfg para poder moterizar los servicios de esta maquina
 cp ./conf/commands.cfg /etc/nagios3/commands.cfg
