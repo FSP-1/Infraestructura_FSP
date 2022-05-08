@@ -6,13 +6,10 @@ CREATE TABLE users (
   id int(11) NOT NULL auto_increment,
   name varchar(100) NOT NULL,
   age int(3) NOT NULL,
-  email varchar(100) NOT NULL,
+  email varchar(150) NOT NULL,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE USER IF NOT EXISTS 'Franco'@'%';
-SET PASSWORD FOR 'Franco'@'%' = '11Ww222Ee';
-GRANT ALL PRIVILEGES ON Franco_db.* TO 'Franco'@'%';
 
 
 

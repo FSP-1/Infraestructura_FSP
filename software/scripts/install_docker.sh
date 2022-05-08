@@ -6,7 +6,7 @@ USER_NAME=ubuntu
  curl -fsSL https://get.docker.com -o get-docker.sh
 
 # Ejecutamos el script
- sudo get-docker.sh
+  ./get-docker.sh
 
  
 
@@ -22,7 +22,7 @@ USER_NAME=ubuntu
 
   # Actualizamos el grupo Docker
 
-newgrp docker
+#newgrp docker
 
 #Instalamos docker 
  apt install docker-compose -y
