@@ -4,27 +4,20 @@
 source config.sh
 #----------------------------------------------------
 
+# Instalación de Nagios server
 # Actualizamos el sistema
 apt update
-# apt upgrade -y
-
-# Instalamos El servidor NGINX
-#apt install nginx -y
-
-# Configuración de Nginx
-#cp ../conf/check.conf /etc/nginx/sites-available/default
-#systemctl restart nginx
 
 #Instalamos ssh y el gestor de base de datos mongoDB 
 apt install ssh -y
 apt install mongodb -y
 
 #Instalamos nagios 4
-apt install wget unzip vim curl gcc openssl build-essential libgd-dev libssl-dev libapache2-mod-php php-gd php apache2 -y
-wget https://assets.nagios.com/downloads/nagioscore/releases/nagios-4.4.6.tar.gz
-tar zxvf nagios-4.4.6.tar.gz 
-mv nagios-4.4.6 /tmp/nagios4/
-rm -rf nagios-4.4.6.tar.gz
+apt install wget unzip zip bash-completion apache2 libapache2-mod-php7.0 php7.0 net-tools autoconf gcc libc6 make apache2-utils libgd-dev libmcrypt-dev make libssl-dev bc gawk dc build-essential snmp libnet-snmp-perl gettext libldap2-dev smbclient fping default- libmysqlclient-dev -y
+wget https://assets.nagios.com/downloads/nagioscore/releases/nagios-4.3.4.tar.gz
+tar xzf nagios-4.3.4.tar.gz 
+mv nagios-4.3.4 /tmp/nagios4/
+rm -rf nagios-4.3.4.tar.gz
 cd /tmp/nagios4/
 ./configure --with-httpd-conf=/etc/apache2/sites-enabled
 make all
@@ -37,17 +30,15 @@ make install-config
 make install-webconf
 htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
 a2enmod cgi
-systemctl restart apache2
-systemctl start nagios
+systemctl restart apache2 && systemctl start nagios
 systemctl enable nagios
 exit;
 
 # Instalamos los plugins nagios para que nos permita monitorizar los parámetros de las máquinas remotas.
-apt install libmcrypt-dev make libssl-dev bc gawk dc build-essential snmp libnet-snmp-perl gettext libldap2-dev smbclient fping libmysqlclient-dev libdbi-dev -y
 cd /tmp/
-wget https://github.com/nagios-plugins/nagios-plugins/archive/release-2.3.3.tar.gz 
-tar zxvf release-2.3.3.tar.gz 
-mv nagios-plugins-release-2.3.3  /tmp/nagios-plugin/
+wget https://github.com/nagios-plugins/nagios-plugins/archive/release-2.2.1.tar.gz
+tar zxvf release-2.2.1.tar.gz 
+mv nagios-plugins-release-2.2.1  /tmp/nagios-plugin/
 rm -rf release-2.3.3.tar.gz
 cd /tmp/nagios-plugin/
 ./tools/setup 
@@ -56,9 +47,31 @@ make
 make install
 
 sudo systemctl restart nagios.service
+exit;
+
 #---------------------------------------------
 
-# Configuraciones de ficheros nagios para el funcionamiento de la monitorización
+# Configuraciones de ficheros nagios para el funcionamiento de la monitorización personalizaa
+
+#---------------------------------------------
+
+# Intalamos el demonio NRPE. Este demonio se encarga de ejecutar comandos check.
+cd /tmp/
+git clone https://github.com/NagiosEnterprises/nrpe.git 
+cd nrpe
+autoconf 
+./configure
+make all
+make install
+make install-plugin
+make install-daemon
+make install-config
+make install-init
+systemctl enable nrpe && systemctl start nrpe
+
+#---------------------------------------------
+
+# Configuraciones de ficheros nagios para el funcionamiento de la monitorización personalizaa
 
 #---------------------------------------------
 
@@ -66,7 +79,7 @@ sudo systemctl restart nagios.service
 cp ./conf/nrpe.cfg /etc/nagios/nrpe.cfg
 
 # Reiniciamos el servicio para que los cambios se apliquen
-systemctl  restart nagios-nrpe-server
+systemctl  restart nrpe
 
 
 #---------------------------------------------
@@ -76,10 +89,12 @@ systemctl  restart nagios-nrpe-server
 #---------------------------------------------
 
 # Creamos el fichero host.cfg y le añadimos lo siguienye
- cp ./conf/host.cfg /etc/nagios3/conf.d/host.cfg
+mkdir -p /usr/local/nagios/etc/servers
+
+ cp ./conf/host.cfg /usr/local/nagios/etc/servers/host.cfg
 
 # Reiniciamos el servicio para que los cambios se apliquen
-/etc/init.d/nagios3 restart
+sudo systemctl restart nagios.service
 
 
 #---------------------------------------------
