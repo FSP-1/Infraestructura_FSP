@@ -48,7 +48,7 @@ mv nagios-plugins/check_mem/check_mem.pl /usr/local/nagios/libexec
 chown nagios.nagios /usr/local/nagios/libexec/check_mem.pl 
 chmod +x /usr/local/nagios/nagios/libexec/check_mem.pl
 
-cp ./conf/nrpe.cfg /etc/nagios/nrpe.cfg
+cp ./conf/nrpe.cfg /usr/local/nagios/etc/nrpe.cfg
 
 # Reiniciamos el servicio para que los cambios se apliquen
-systemctl  restart nagios-nrpe-server
+systemctl  restart nrpe

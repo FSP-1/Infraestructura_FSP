@@ -13,7 +13,7 @@ apt install ssh -y
 apt install mongodb -y
 
 #Instalamos nagios 4
-apt install wget unzip zip bash-completion apache2 libapache2-mod-php7.0 php7.0 net-tools autoconf gcc libc6 make apache2-utils libgd-dev libmcrypt-dev make libssl-dev bc gawk dc build-essential snmp libnet-snmp-perl gettext libldap2-dev smbclient fping default- libmysqlclient-dev -y
+apt install wget unzip zip bash-completion apache2 libapache2-mod-php7.4 php7.4 net-tools autoconf gcc libc6 make apache2-utils libgd-dev libmcrypt-dev make libssl-dev bc gawk dc build-essential snmp libnet-snmp-perl gettext libldap2-dev smbclient fping default-libmysqlclient-dev -y
 wget https://assets.nagios.com/downloads/nagioscore/releases/nagios-4.3.4.tar.gz
 tar xzf nagios-4.3.4.tar.gz 
 mv nagios-4.3.4 /tmp/nagios4/
@@ -32,14 +32,14 @@ htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
 a2enmod cgi
 systemctl restart apache2 && systemctl start nagios
 systemctl enable nagios
-exit;
+
 
 # Instalamos los plugins nagios para que nos permita monitorizar los parámetros de las máquinas remotas.
 cd /tmp/
 wget https://github.com/nagios-plugins/nagios-plugins/archive/release-2.2.1.tar.gz
 tar zxvf release-2.2.1.tar.gz 
 mv nagios-plugins-release-2.2.1  /tmp/nagios-plugin/
-rm -rf release-2.3.3.tar.gz
+rm -rf release-2.2.1.tar.gz
 cd /tmp/nagios-plugin/
 ./tools/setup 
 ./configure 
@@ -47,7 +47,7 @@ make
 make install
 
 sudo systemctl restart nagios.service
-exit;
+
 
 #---------------------------------------------
 
@@ -67,16 +67,24 @@ make install-plugin
 make install-daemon
 make install-config
 make install-init
-systemctl enable nrpe && systemctl start nrpe
-
+systemctl enable nrpe 
+systemctl start nrpe
+exit;
 #---------------------------------------------
 
 # Configuraciones de ficheros nagios para el funcionamiento de la monitorización personalizaa
 
 #---------------------------------------------
+cd /tmp/
+wget https://github.com/mongodb/mongo-python-driver/archive/2.7rc1.tar.gz
+tar xvf 2.7rc1.tar.gz
+rm -rf 2.7rc1.tar.gz
+cd mongo-python-driver-2.7rc1/
+python setup.py install
+mv check_mongodb.py /usr/local/nagios/libexec/
 
 # Cambiamos el fichero nrpe.cfg para permitir el acceso al servidor Nagios añadiendo su ip
-cp ./conf/nrpe.cfg /etc/nagios/nrpe.cfg
+cp ../conf/nrpe.cfg  /usr/local/nagios/etc/nrpe.cfg
 
 # Reiniciamos el servicio para que los cambios se apliquen
 systemctl  restart nrpe
@@ -88,10 +96,14 @@ systemctl  restart nrpe
 
 #---------------------------------------------
 
+#
+ cp ../conf/localhost.cfg /usr/local/nagios/etc/objects/localhost.cfg
+
 # Creamos el fichero host.cfg y le añadimos lo siguienye
+
 mkdir -p /usr/local/nagios/etc/servers
 
- cp ./conf/host.cfg /usr/local/nagios/etc/servers/host.cfg
+ cp ../conf/host.cfg /usr/local/nagios/etc/servers/host.cfg
 
 # Reiniciamos el servicio para que los cambios se apliquen
 sudo systemctl restart nagios.service
