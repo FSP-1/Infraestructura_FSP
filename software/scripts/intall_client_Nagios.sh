@@ -5,6 +5,8 @@ apt update
 apt install libmcrypt-dev git autoconf make libssl-dev bc gawk dc build-essential snmp libnet-snmp-perl gettext libldap2-dev smbclient fping default-libmysqlclient-dev
 
 # Instalamos los plugins nagios para que nos permita monitorizar los parámetros de las máquinas remotas.
+useradd nagios
+groupadd nagios
 cd /tmp/
 wget https://github.com/nagios-plugins/nagios-plugins/archive/release-2.2.1.tar.gz
 tar zxvf release-2.2.1.tar.gz 
