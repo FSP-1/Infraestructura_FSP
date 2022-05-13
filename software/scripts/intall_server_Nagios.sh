@@ -30,7 +30,8 @@ make install-config
 make install-webconf
 htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
 a2enmod cgi
-systemctl restart apache2 && systemctl start nagios
+systemctl restart apache2 
+systemctl start nagios
 systemctl enable nagios
 
 
@@ -69,7 +70,7 @@ make install-config
 make install-init
 systemctl enable nrpe 
 systemctl start nrpe
-exit;
+
 #---------------------------------------------
 
 # Configuraciones de ficheros nagios para el funcionamiento de la monitorización personalizaa
@@ -82,10 +83,10 @@ rm -rf 2.7rc1.tar.gz
 cd mongo-python-driver-2.7rc1/
 python setup.py install
 mv check_mongodb.py /usr/local/nagios/libexec/
-
+cd /home/ubuntu/Practica_FSP/software/scripts
 # Cambiamos el fichero nrpe.cfg para permitir el acceso al servidor Nagios añadiendo su ip
 cp ../conf/nrpe.cfg  /usr/local/nagios/etc/nrpe.cfg
-
+exit;
 # Reiniciamos el servicio para que los cambios se apliquen
 systemctl  restart nrpe
 
@@ -95,15 +96,19 @@ systemctl  restart nrpe
 # Monitorizar maquinas
 
 #---------------------------------------------
-
-#
- cp ../conf/localhost.cfg /usr/local/nagios/etc/objects/localhost.cfg
-
-# Creamos el fichero host.cfg y le añadimos lo siguienye
-
+# Creamos el directorio  servers  y le añadimos lo siguiente
 mkdir -p /usr/local/nagios/etc/servers
 
+ cp ../conf/localhost.cfg /usr/local/nagios/etc/objects/localhost.cfg
  cp ../conf/host.cfg /usr/local/nagios/etc/servers/host.cfg
+ cp ../conf/observer.cfg /usr/local/nagios/etc/objects/observer.cfg
+ cp ../conf/Brother-ahs.cfg /usr/local/nagios/etc/objects/Brother-ahs.cfg
+ cp ../conf/Brother-ember.cfg /usr/local/nagios/etc/objects/Brother-ember.cfg
+ cp ../conf/Balancer.cfg /usr/local/nagios/etc/objects/Balancer.cfg
+ cp ../conf/Mysql-server.cfg /usr/local/nagios/etc/objects/Mysql-server.cfg
+ chown nagios.nagios /usr/local/nagios/etc/objects/*
+
+
 
 # Reiniciamos el servicio para que los cambios se apliquen
 sudo systemctl restart nagios.service
@@ -145,7 +150,7 @@ apt install ssmtp -y
 cp ./conf/ssmtp.conf /etc/ssmtp/ssmtp.conf
 
 # Modificamos el fichero contacts_nagios2.cfg para poder enviarnos mensajes a nuestras cuentas electrónicas
-cp ./conf/contacts_nagios2.cfg /etc/nagios3/conf.d/contacts_nagios2.cfg
+cp ../conf/contacts.cfg  /usr/local/nagios/etc/objects/contacts.cfg
 
 # Reiniciamos el servicio para que los cambios se apliquen
 /etc/init.d/nagios3 restart
