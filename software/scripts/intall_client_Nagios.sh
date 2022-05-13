@@ -2,9 +2,11 @@
 
 # Instalamos las dependencias necesarias para intalar nrpe y los puglins de nagios en las maquinas remotas
 apt update
-apt install libmcrypt-dev git autoconf make libssl-dev bc gawk dc build-essential snmp libnet-snmp-perl gettext libldap2-dev smbclient fping default-libmysqlclient-dev
+apt install libmcrypt-dev git autoconf make libssl-dev bc gawk dc build-essential snmp libnet-snmp-perl gettext libldap2-dev smbclient fping default-libmysqlclient-dev -y 
 
 # Instalamos los plugins nagios para que nos permita monitorizar los parámetros de las máquinas remotas.
+useradd nagios
+groupadd nagios
 cd /tmp/
 wget https://github.com/nagios-plugins/nagios-plugins/archive/release-2.2.1.tar.gz
 tar zxvf release-2.2.1.tar.gz 
@@ -30,7 +32,8 @@ make install-plugin
 make install-daemon
 make install-config
 make install-init
-systemctl enable nrpe && systemctl start nrpe
+systemctl enable nrpe 
+systemctl start nrpe
 
 
 
@@ -48,7 +51,7 @@ mv nagios-plugins/check_mem/check_mem.pl /usr/local/nagios/libexec
 chown nagios.nagios /usr/local/nagios/libexec/check_mem.pl 
 chmod +x /usr/local/nagios/nagios/libexec/check_mem.pl
 
-cp ./conf/nrpe.cfg /usr/local/nagios/etc/nrpe.cfg
+cp ../conf/nrpe.cfg /usr/local/nagios/etc/nrpe.cfg
 
 # Reiniciamos el servicio para que los cambios se apliquen
 systemctl  restart nrpe
