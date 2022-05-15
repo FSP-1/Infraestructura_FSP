@@ -96,17 +96,21 @@ systemctl  restart nrpe
 # Monitorizar maquinas
 
 #---------------------------------------------
-# Creamos el directorio  servers  y le añadimos lo siguiente
+# Creamos el directorio  servers  y le añadimos los ficheros de configuración
 mkdir -p /usr/local/nagios/etc/servers
 
  cp ../conf/localhost.cfg /usr/local/nagios/etc/objects/localhost.cfg
  cp ../conf/host.cfg /usr/local/nagios/etc/servers/host.cfg
+ cp ../conf/templates.cfg /usr/local/nagios/etc/objects/templates.cfg
+ cp ../conf/commands.cfg /usr/local/nagios/etc/objects/commands.cfg
+ cp ../conf/contacts.cfg  /usr/local/nagios/etc/objects/contacts.cfg
  cp ../conf/observer.cfg /usr/local/nagios/etc/objects/observer.cfg
  cp ../conf/Brother-ahs.cfg /usr/local/nagios/etc/objects/Brother-ahs.cfg
  cp ../conf/Brother-ember.cfg /usr/local/nagios/etc/objects/Brother-ember.cfg
  cp ../conf/Balancer.cfg /usr/local/nagios/etc/objects/Balancer.cfg
  cp ../conf/Mysql-server.cfg /usr/local/nagios/etc/objects/Mysql-server.cfg
  chown nagios.nagios /usr/local/nagios/etc/objects/*
+ chown nagios.nagios /usr/local/nagios/etc/server/*
 
 
 
@@ -114,26 +118,6 @@ mkdir -p /usr/local/nagios/etc/servers
 sudo systemctl restart nagios.service
 
 
-#---------------------------------------------
-
-# Monitorizar los servicios de esta maquina
-
-#---------------------------------------------
-
-
-
-# Modificamos el fichero commands.cfg para poder moterizar los servicios de esta maquina
-cp ./conf/commands.cfg /etc/nagios3/commands.cfg
-
-
-#---------------------------------------------
-
-# Monitorizar los servicios de las maquinas remotas 
-
-#---------------------------------------------
-
-# Modificamos el fichero servicios-fisico.cfg para poder moterizar los servicios de las maquina remotamente
-cp ./conf/servicios-fisico.cfg /etc/nagios3/conf.d/servicios-fisico.cfg
 
 
 #---------------------------------------------
@@ -147,13 +131,8 @@ cp ./conf/servicios-fisico.cfg /etc/nagios3/conf.d/servicios-fisico.cfg
 apt install ssmtp -y
 
 # Modificamos el fichero ssmtp.conf para poder enviarnos mensajes a nuestras cuentas electrónicas
-cp ./conf/ssmtp.conf /etc/ssmtp/ssmtp.conf
+cp ../conf/ssmtp.conf /etc/ssmtp/ssmtp.conf
 
-# Modificamos el fichero contacts_nagios2.cfg para poder enviarnos mensajes a nuestras cuentas electrónicas
-cp ../conf/contacts.cfg  /usr/local/nagios/etc/objects/contacts.cfg
-
-# Reiniciamos el servicio para que los cambios se apliquen
-/etc/init.d/nagios3 restart
 
 
 
