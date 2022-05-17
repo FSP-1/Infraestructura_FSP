@@ -61,7 +61,7 @@ cd /tmp/
 git clone https://github.com/NagiosEnterprises/nrpe.git 
 cd nrpe
 autoconf 
-./configure
+./configure --enable-ssl
 make all
 make install
 make install-plugin
@@ -86,7 +86,7 @@ mv check_mongodb.py /usr/local/nagios/libexec/
 cd /home/ubuntu/Practica_FSP/software/scripts
 # Cambiamos el fichero nrpe.cfg para permitir el acceso al servidor Nagios añadiendo su ip
 cp ../conf/nrpe.cfg  /usr/local/nagios/etc/nrpe.cfg
-exit;
+
 # Reiniciamos el servicio para que los cambios se apliquen
 systemctl  restart nrpe
 
@@ -111,7 +111,8 @@ mkdir -p /usr/local/nagios/etc/servers
  cp ../conf/Mysql-server.cfg /usr/local/nagios/etc/objects/Mysql-server.cfg
  chown nagios.nagios /usr/local/nagios/etc/objects/*
  chown nagios.nagios /usr/local/nagios/etc/server/*
-
+  chmod 755 /usr/local/nagios/etc/objects/*
+ chmod 755 /usr/local/nagios/etc/servers/
 
 
 # Reiniciamos el servicio para que los cambios se apliquen
