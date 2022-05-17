@@ -54,3 +54,4 @@ cp ../conf/nrpe.cfg /usr/local/nagios/etc/nrpe.cfg
 
 # Reiniciamos el servicio para que los cambios se apliquen
 systemctl  restart nrpe
+
