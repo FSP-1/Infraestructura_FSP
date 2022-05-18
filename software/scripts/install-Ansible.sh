@@ -27,3 +27,6 @@ unzip awscliv2.zip
 
  ./aws/install 
 aws --version
+
+rm /etc/localtime
+ln -s /usr/share/zoneinfo/Europe/Madrid /etc/localtime
