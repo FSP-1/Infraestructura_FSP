@@ -139,12 +139,29 @@ aws ec2 create-security-group \
     --cidr 0.0.0.0/0
 
 # --------------------------------------------
+# Grupo de seguridad para Ansible
+aws ec2 create-security-group \
+    --group-name ansible \
+    --description "Reglas para el backup"
 
+    # Cramos una regla de accesso   SSH
+    aws ec2 authorize-security-group-ingress \
+    --group-name ansible \
+    --protocol tcp \
+    --port 22 \
+    --cidr 0.0.0.0/0
+
+ # Cramos una regla de accesso   NRPE
+    aws ec2 authorize-security-group-ingress \
+    --group-name ansible \
+    --protocol tcp \
+    --port 5666 \
+    --cidr 0.0.0.0/0
 
 # ------------------------------------------------
 # Grupo de seguridad para mysql
 aws ec2 create-security-group \
-    --group-name backup-sg \
+    --group-name mysql \
     --description "Reglas para el backup"
 
     # Cramos una regla de accesso   SSH

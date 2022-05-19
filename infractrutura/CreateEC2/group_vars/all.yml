@@ -1,0 +1,22 @@
+---
+keypair: IAW2 
+instance_type: t2.small 
+image: ami-0472eef47f816e45d 
+count: 1
+region: us-east-1
+SECURIRY_GROUP: Brothers 
+SECURIRY_GROUP3: Balancer-sg 
+SECURIRY_GROUP4: nfs-sg 
+SECURIRY_GROUP5: nagios 
+SECURIRY_GROUP6: ansible
+SECURIRY_GROUP7: mysql
+
+INSTANCE_NAME_WWW1: Ash-Twin
+INSTANCE_NAME_WWW2: Ember_Twin
+INSTANCE_NAME_BALANCER: Balancer
+INSTANCE_NAME_SERVER: nfs_server
+INSTANCE_NAME_NAGIOS: Nagios_server
+INSTANCE_NAME_ANSIBLE: Ansible
+INSTANCE_NAME_MYSQL: Mysql
+
+   

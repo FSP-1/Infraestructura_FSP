@@ -29,4 +29,5 @@ unzip awscliv2.zip
 aws --version
 
 rm /etc/localtime
-ln -s /usr/share/zoneinfo/Europe/Madrid /etc/localtime	us-east-1
+ln -s /usr/share/zoneinfo/Europe/Madrid /etc/localtime	
+ssh-keygen

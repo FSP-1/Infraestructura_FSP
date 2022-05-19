@@ -1,0 +1,138 @@
+---
+ - name: 1 - Create my security group
+       local_action: 
+         module: ec2_group
+         name: "{{ SECURIRY_GROUP }}"
+         description: Security Group para los brothers
+         region: "{{ region }}"
+         rules:
+            - proto: tcp
+              from_port: 22
+              to_port: 22
+              cidr_ip: 0.0.0.0/0
+            - proto: tcp
+              from_port: 80
+              to_port: 80
+              cidr_ip: 0.0.0.0/0
+            - proto: tcp
+              from_port: 2049
+              to_port: 2049
+              cidr_ip: 0.0.0.0/0
+            - proto: tcp
+              from_port: 5666
+              to_port: 5666
+              cidr_ip: 0.0.0.0/0
+            - proto: tcp
+              from_port: 19999
+              to_port: 19999
+              cidr_ip: 0.0.0.0/0
+         rules_egress:
+            - proto: all
+              cidr_ip: 0.0.0.0/0
+       register: basic_firewall
+       local_action: 
+         module: ec2_group
+         name: "{{ SECURIRY_GROUP3 }}"
+         description: Security Group para el balanceador
+         region: "{{ region }}"
+         rules:
+            - proto: tcp
+              from_port: 22
+              to_port: 22
+              cidr_ip: 0.0.0.0/0
+            - proto: tcp
+              from_port: 443
+              to_port: 443
+              cidr_ip: 0.0.0.0/0
+            - proto: tcp
+              from_port: 80
+              to_port: 80
+              cidr_ip: 0.0.0.0/0
+            - proto: tcp
+              from_port: 5666
+              to_port: 5666
+              cidr_ip: 0.0.0.0/0
+         rules_egress:
+            - proto: all
+              cidr_ip: 0.0.0.0/0
+       register: basic_firewall1
+       local_action: 
+         module: ec2_group
+         name: "{{ SECURIRY_GROUP4 }}"
+         description: Security Group para el balanceador
+         region: "{{ region }}"
+         rules:
+            - proto: tcp
+              from_port: 22
+              to_port: 22
+              cidr_ip: 0.0.0.0/0
+            - proto: tcp
+              from_port: 2049
+              to_port: 2049
+              cidr_ip: 0.0.0.0/0
+         rules_egress:
+            - proto: all
+              cidr_ip: 0.0.0.0/0
+       register: basic_firewall2
+       local_action: 
+         module: ec2_group
+         name: "{{ SECURIRY_GROUP5 }}"
+         description: Security Group para el balanceador
+         region: "{{ region }}"
+         rules:
+            - proto: tcp
+              from_port: 22
+              to_port: 22
+              cidr_ip: 0.0.0.0/0
+            - proto: tcp
+              from_port: 443
+              to_port: 443
+              cidr_ip: 0.0.0.0/0
+            - proto: tcp
+              from_port: 80
+              to_port: 80
+              cidr_ip: 0.0.0.0/0
+            - proto: tcp
+              from_port: 5666
+              to_port: 5666
+              cidr_ip: 0.0.0.0/0
+         rules_egress:
+            - proto: all
+              cidr_ip: 0.0.0.0/0
+       register: basic_firewall3
+       local_action: 
+         module: ec2_group
+         name: "{{ SECURIRY_GROUP6 }}"
+         description: Security Group para el balanceador
+         region: "{{ region }}"
+         rules:
+            - proto: tcp
+              from_port: 22
+              to_port: 22
+              cidr_ip: 0.0.0.0/0
+            - proto: tcp
+              from_port: 5666
+              to_port: 5666
+              cidr_ip: 0.0.0.0/0
+         rules_egress:
+            - proto: all
+              cidr_ip: 0.0.0.0/0
+       register: basic_firewall4
+       local_action: 
+         module: ec2_group
+         name: "{{ SECURIRY_GROUP7 }}"
+         description: Security Group para el balanceador
+         region: "{{ region }}"
+         rules:
+            - proto: tcp
+              from_port: 22
+              to_port: 22
+              cidr_ip: 0.0.0.0/0
+            - proto: tcp
+              from_port: 3306
+              to_port: 3306
+              cidr_ip: 0.0.0.0/0
+         rules_egress:
+            - proto: all
+              cidr_ip: 0.0.0.0/0
+       register: basic_firewall5
