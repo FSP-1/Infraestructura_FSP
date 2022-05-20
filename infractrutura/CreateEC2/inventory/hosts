@@ -4,4 +4,3 @@
 
  
 
-mkdir -p Balancer/{group_vars,inventory,roles}
