@@ -1,7 +1,8 @@
 ---
-- hosts: localhost 
+- name: Prueba
+  hosts: localhost 
   become: true
   roles: 
-    - Create-securyty-group
-    - Create-intances
+   - role: Create-securyty-group
+   - role: Create-intances
    

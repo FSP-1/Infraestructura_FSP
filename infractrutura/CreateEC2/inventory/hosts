@@ -1,0 +1,7 @@
+[localhost]
+127.0.0.1 ansible_user=ubuntu ansible_connection=ssh 
+
+
+ 
+
+mkdir -p Balancer/{group_vars,inventory,roles}

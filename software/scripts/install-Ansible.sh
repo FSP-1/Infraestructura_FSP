@@ -31,5 +31,3 @@ aws --version
 rm /etc/localtime
 ln -s /usr/share/zoneinfo/Europe/Madrid /etc/localtime	
 ssh-keygen
-wget https://raw.githubusercontent.com/ansible/ansible/devel/contrib/inventory/ec2.py    
-wget https://raw.githubusercontent.com/ansible/ansible/devel/contrib/inventory/ec2.ini

@@ -1,0 +1,6 @@
+- name: Automatización Para Balancer
+  hosts: Balanceador 
+  become: true
+  roles: 
+   - role: balancer
+   
