@@ -1,7 +1,6 @@
 ---
      - name: 2 Lanzamos las instancias
-       local_action:  
-        ec2: 
+       ec2: 
             group: "{{ SECURIRY_GROUP }}" 
             instance_type: "{{ instance_type}}"
             image: "{{ image }}" 
@@ -9,11 +8,12 @@
             region: "{{ region }}" 
             keypair: "{{ keypair }}" 
             count: "{{ count }}"
+            assign_public_ip: sí 
             instance_tags:
               "Name": "{{INSTANCE_NAME_WWW1}}"
-        register: ec2
-       local_action:  
-        ec2: 
+       register: ec2
+
+       ec2: 
             group: "{{ SECURIRY_GROUP }}" 
             instance_type: "{{ instance_type}}"
             image: "{{ image }}" 
@@ -21,11 +21,12 @@
             region: "{{ region }}" 
             keypair: "{{ keypair }}" 
             count: "{{ count }}"
+            assign_public_ip: sí 
             instance_tags:
               "Name": "{{INSTANCE_NAME_WWW2}}"
-        register: ec2_1
-       local_action:  
-        ec2: 
+       register: ec2_1
+
+       ec2: 
             group: "{{ SECURIRY_GROUP3 }}" 
             instance_type: "{{ instance_type}}"
             image: "{{ image }}" 
@@ -33,11 +34,12 @@
             region: "{{ region }}" 
             keypair: "{{ keypair }}" 
             count: "{{ count }}"
+            assign_public_ip: sí 
             instance_tags:
               "Name": "{{INSTANCE_NAME_BALANCER}}"
-        register: ec2_2
-       local_action:  
-        ec2: 
+       register: ec2_2
+
+       ec2: 
             group: "{{ SECURIRY_GROUP4 }}" 
             instance_type: "{{ instance_type}}"
             image: "{{ image }}" 
@@ -47,9 +49,9 @@
             count: "{{ count }}"
             instance_tags:
               "Name": "{{INSTANCE_NAME_SERVER}}"
-        register: ec2_3
-       local_action:  
-        ec2: 
+       register: ec2_3
+
+       ec2: 
             group: "{{ SECURIRY_GROUP5 }}" 
             instance_type: "{{ instance_type}}"
             image: "{{ image }}" 
@@ -57,11 +59,12 @@
             region: "{{ region }}" 
             keypair: "{{ keypair }}" 
             count: "{{ count }}"
+            assign_public_ip: sí 
             instance_tags:
               "Name": "{{INSTANCE_NAME_NAGIOS}}"
-        register: ec2_4
-       local_action:  
-        ec2: 
+       register: ec2_4
+
+       ec2: 
             group: "{{ SECURIRY_GROUP6 }}" 
             instance_type: "{{ instance_type}}"
             image: "{{ image }}" 
@@ -71,9 +74,9 @@
             count: "{{ count }}"
             instance_tags:
               "Name": "{{INSTANCE_NAME_ANSIBLE}}"
-        register: ec2_4
-       local_action:  
-        ec2: 
+       register: ec2_4
+
+       ec2: 
             group: "{{ SECURIRY_GROUP7 }}" 
             instance_type: "{{ instance_type}}"
             image: "{{ image }}" 
@@ -81,6 +84,7 @@
             region: "{{ region }}" 
             keypair: "{{ keypair }}" 
             count: "{{ count }}"
+            assign_public_ip: sí 
             instance_tags:
               "Name": "{{INSTANCE_NAME_MYSQL}}"
-        register: ec2_4
+       register: ec2_4
