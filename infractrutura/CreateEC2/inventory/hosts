@@ -1,5 +1,5 @@
 [localhost]
-127.0.0.1 ansible_user=ubuntu ansible_connection=ssh 
+100.26.184.85 ansible_user=ubuntu ansible_connection=ssh 
 
 
  

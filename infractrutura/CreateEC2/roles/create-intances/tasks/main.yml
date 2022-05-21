@@ -1,91 +1,78 @@
 ---
-     - name: 2 Lanzamos las instancias
-       ec2: 
-            group: "{{ SECURIRY_GROUP }}" 
-            instance_type: "{{ instance_type}}"
-            image: "{{ image }}" 
-            wait: yes 
-            region: "{{ region }}" 
-            keypair: "{{ keypair }}" 
-            count: "{{ count }}"
-            assign_public_ip: sí 
-            instance_tags:
-              "Name": "{{INSTANCE_NAME_WWW1}}"
-       register: ec2
+- name: Lanzamos las instancias 
+  ec2_instance:
+          key_name: "{{ keypair }}" 
+          security_group: "{{ SECURIRY_GROUP }}" 
+          instance_type: "{{ instance_type}}"
+          image_id: "{{ image }}" 
+          wait: yes 
+          region: "{{ region }}" 
+          count: "{{ count }}"
+          tags:
+              Name: "{{INSTANCE_NAME_WWW1}}"
+  register: ec2
 
-       ec2: 
-            group: "{{ SECURIRY_GROUP }}" 
-            instance_type: "{{ instance_type}}"
-            image: "{{ image }}" 
-            wait: yes 
-            region: "{{ region }}" 
-            keypair: "{{ keypair }}" 
-            count: "{{ count }}"
-            assign_public_ip: sí 
-            instance_tags:
-              "Name": "{{INSTANCE_NAME_WWW2}}"
-       register: ec2_1
+- name: Lanzamos las instancias 
+  ec2_instance:
+          key_name: "{{ keypair }}" 
+          security_group: "{{ SECURIRY_GROUP }}" 
+          instance_type: "{{ instance_type}}"
+          image_id: "{{ image }}" 
+          wait: yes 
+          region: "{{ region }}" 
+          count: "{{ count }}"
+          tags:
+              Name: "{{INSTANCE_NAME_WWW2}}"
+  register: ec2
 
-       ec2: 
-            group: "{{ SECURIRY_GROUP3 }}" 
-            instance_type: "{{ instance_type}}"
-            image: "{{ image }}" 
-            wait: yes 
-            region: "{{ region }}" 
-            keypair: "{{ keypair }}" 
-            count: "{{ count }}"
-            assign_public_ip: sí 
-            instance_tags:
-              "Name": "{{INSTANCE_NAME_BALANCER}}"
-       register: ec2_2
+- name: Lanzamos las instancias 
+  ec2_instance:
+          key_name: "{{ keypair }}" 
+          security_group: "{{ SECURIRY_GROUP3 }}" 
+          instance_type: "{{ instance_type}}"
+          image_id: "{{ image }}" 
+          wait: yes 
+          region: "{{ region }}" 
+          count: "{{ count }}"
+          tags:
+              Name: "{{INSTANCE_NAME_BALANCER}}"
+  register: ec2
 
-       ec2: 
-            group: "{{ SECURIRY_GROUP4 }}" 
-            instance_type: "{{ instance_type}}"
-            image: "{{ image }}" 
-            wait: yes 
-            region: "{{ region }}" 
-            keypair: "{{ keypair }}" 
-            count: "{{ count }}"
-            instance_tags:
-              "Name": "{{INSTANCE_NAME_SERVER}}"
-       register: ec2_3
+- name: Lanzamos las instancias 
+  ec2_instance:
+          key_name: "{{ keypair }}" 
+          security_group: "{{ SECURIRY_GROUP4 }}" 
+          instance_type: "{{ instance_type}}"
+          image_id: "{{ image }}" 
+          wait: yes 
+          region: "{{ region }}" 
+          count: "{{ count }}"
+          tags:
+              Name: "{{INSTANCE_NAME_SERVER}}"
+  register: ec2
 
-       ec2: 
-            group: "{{ SECURIRY_GROUP5 }}" 
-            instance_type: "{{ instance_type}}"
-            image: "{{ image }}" 
-            wait: yes 
-            region: "{{ region }}" 
-            keypair: "{{ keypair }}" 
-            count: "{{ count }}"
-            assign_public_ip: sí 
-            instance_tags:
-              "Name": "{{INSTANCE_NAME_NAGIOS}}"
-       register: ec2_4
+- name: Lanzamos las instancias 
+  ec2_instance:
+          key_name: "{{ keypair }}" 
+          security_group: "{{ SECURIRY_GROUP5 }}" 
+          instance_type: "{{ instance_type}}"
+          image_id: "{{ image }}" 
+          wait: yes 
+          region: "{{ region }}" 
+          count: "{{ count }}"
+          tags:
+              Name: "{{INSTANCE_NAME_NAGIOS}}"
+  register: ec2
 
-       ec2: 
-            group: "{{ SECURIRY_GROUP6 }}" 
-            instance_type: "{{ instance_type}}"
-            image: "{{ image }}" 
-            wait: yes 
-            region: "{{ region }}" 
-            keypair: "{{ keypair }}" 
-            count: "{{ count }}"
-            instance_tags:
-              "Name": "{{INSTANCE_NAME_ANSIBLE}}"
-       register: ec2_4
-
-       ec2: 
-            group: "{{ SECURIRY_GROUP7 }}" 
-            instance_type: "{{ instance_type}}"
-            image: "{{ image }}" 
-            wait: yes 
-            region: "{{ region }}" 
-            keypair: "{{ keypair }}" 
-            count: "{{ count }}"
-            assign_public_ip: sí 
-            instance_tags:
-              "Name": "{{INSTANCE_NAME_MYSQL}}"
-       register: ec2_4
-
+- name: Lanzamos las instancias 
+  ec2_instance:
+          key_name: "{{ keypair }}" 
+          security_group: "{{ SECURIRY_GROUP7 }}" 
+          instance_type: "{{ instance_type}}"
+          image_id: "{{ image }}" 
+          wait: yes 
+          region: "{{ region }}" 
+          count: "{{ count }}"
+          tags:
+              Name: "{{INSTANCE_NAME_MYSQL}}"
+  register: ec2

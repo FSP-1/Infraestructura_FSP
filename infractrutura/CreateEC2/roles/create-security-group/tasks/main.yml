@@ -1,6 +1,7 @@
 ---
- - name: 1 - Create my security group
-   ec2_group:
+ - name: Security Group para los brothers
+   local_action: 
+         module: ec2_group
          name: "{{ SECURIRY_GROUP }}"
          description: Security Group para los brothers
          region: "{{ region }}"
@@ -30,7 +31,9 @@
               cidr_ip: 0.0.0.0/0
    register: basic_firewall
 
-   ec2_group:
+ - name: Security Group para el balanceador
+   local_action: 
+         module: ec2_group
          name: "{{ SECURIRY_GROUP3 }}"
          description: Security Group para el balanceador
          region: "{{ region }}"
@@ -56,7 +59,9 @@
               cidr_ip: 0.0.0.0/0
    register: basic_firewall1
 
-   ec2_group:
+ - name: Security Group para el NFS
+   local_action: 
+         module: ec2_group
          name: "{{ SECURIRY_GROUP4 }}"
          description: Security Group para el NFS
          region: "{{ region }}"
@@ -74,7 +79,9 @@
               cidr_ip: 0.0.0.0/0
    register: basic_firewall2
 
-   ec2_group:
+ - name: Security Group para el Nagios
+   local_action: 
+         module: ec2_group
          name: "{{ SECURIRY_GROUP5 }}"
          description: Security Group para el Nagios
          region: "{{ region }}"
@@ -100,7 +107,9 @@
               cidr_ip: 0.0.0.0/0
    register: basic_firewall3
 
-   ec2_group:
+ - name: Security Group para el Ansible
+   local_action: 
+         module: ec2_group
          name: "{{ SECURIRY_GROUP6 }}"
          description: Security Group para el Ansible
          region: "{{ region }}"
@@ -118,7 +127,9 @@
               cidr_ip: 0.0.0.0/0
    register: basic_firewall4
 
-   ec2_group:
+ - name: Security Group para el Mysql-server
+   local_action: 
+         module: ec2_group
          name: "{{ SECURIRY_GROUP7 }}"
          description: Security Group para el Mysql-server
          region: "{{ region }}"
@@ -139,3 +150,11 @@
             - proto: all
               cidr_ip: 0.0.0.0/0
    register: basic_firewall5
+
+
+
+
+
+
+
+
