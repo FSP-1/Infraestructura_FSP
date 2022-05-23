@@ -29,3 +29,7 @@ aws --version
 
 rm /etc/localtime
 ln -s /usr/share/zoneinfo/Europe/Madrid /etc/localtime	
+ mkdir -p Brothers/{inventory,group_vars,roles}
+
+ mkdir -p Docker-Build/{handlers,tasks,templates}
+  mkdir -p NFS_client/{handlers,tasks,templates}

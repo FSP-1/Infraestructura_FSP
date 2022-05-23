@@ -6,10 +6,10 @@
 
 apt-get install nfs-common -y
 #
-mount 172.31.92.138:/home/ubuntu/Practica_FSP/software/Pagina-Web /home/ubuntu/Practica_FSP/software/Pagina-Web
+mount 172.31.94.71:/tmp/Pagina-web /tmp/Pagina-web
 #
 
- sed -i "/LABEL=cloudimg-rootfs/a 172.31.92.138:/home/ubuntu/Practica_FSP/software/Pagina-Web /home/ubuntu/Practica_FSP/software/Pagina-Web  nfs auto,nofail,noatime,nolock,intr,tcp,actimeo=1800 0 0" /etc/fstab
+ sed -i "/LABEL=cloudimg-rootfs/a 172.31.92.138:/tmp/Pagina-web /tmp/Pagina-web  nfs auto,nofail,noatime,nolock,intr,tcp,actimeo=1800 0 0" /etc/fstab
 
 #
 systemctl restart nfs-client.target

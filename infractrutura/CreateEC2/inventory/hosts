@@ -1,6 +1,2 @@
 [localhost]
-100.26.184.85 ansible_user=ubuntu ansible_connection=ssh 
-
-
- 
-
+3.86.97.63 ansible_user=ubuntu ansible_connection=ssh 

@@ -1,2 +1,18 @@
-[Balanceador]
-105476450
+[localhost]
+3.86.97.63 ansible_user=ubuntu ansible_connection=ssh 
+
+[Brothers]
+3.234.166.240  ansible_user=ubuntu ansible_connection=ssh 
+44.198.194.237 ansible_user=ubuntu ansible_connection=ssh 
+
+[NFS]
+3.86.225.139 ansible_user=ubuntu ansible_connection=ssh 
+
+[Balancer]
+184.73.75.144 ansible_user=ubuntu ansible_connection=ssh 
+
+[Mysql-Server]
+35.175.94.167 ansible_user=ubuntu ansible_connection=ssh 
+
+[Nagios]
+3.213.191.141  ansible_user=ubuntu ansible_connection=ssh 

@@ -5,3 +5,5 @@
   roles: 
     - create-security-group
     - create-intances
+    - Create-ip-elastica
+
