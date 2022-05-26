@@ -1,0 +1,5 @@
+---
+- hosts: Brothers 
+  become: true
+  roles: 
+    - NFS_client

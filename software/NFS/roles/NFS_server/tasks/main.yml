@@ -1,0 +1,21 @@
+---
+- name: Instalar NFS Server
+  apt:
+    name: ['nfs-kernel-server'] 
+
+- name: Creamos la carpeta donde montaremos el servidor NFS
+  file: 
+    path: /tmp/Pagina-Web
+    state: directory
+    owner: ubuntu
+    group: ubuntu
+
+- name: Añadimos lo que queremos compartir
+  shell: 'echo "/tmp/Pagina-Web 172.31.0.0/16(rw,sync,no_root_squash,no_subtree_check)" > /etc/exports' 
+  args:
+    chdir: /home/ubuntu 
+
+- name: Reiniciamos el servidor nfs para aplicar los cambios
+  service:
+    name: ['nfs-kernel-server']
+    state: restarted

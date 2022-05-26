@@ -1,0 +1,29 @@
+---
+- name: Instalar NFS Server
+  apt:
+    name: ['nfs-common'] 
+
+- name: Creamos la carpeta donde montaremos el servidor NFS
+  file: 
+    path: /tmp/Pagina-Web
+    state: directory
+    owner: root
+    group: root
+
+- name: mount network share
+  ansible.posix.mount:
+    src: "172.31.94.71:/tmp/Pagina-web"
+    path: "/tmp/Pagina-web"
+    fstype: nfs4
+    opts: "rw,sync,no_root_squash,no_subtree_check"
+    state: mounted
+
+- name: configuramos el cliente nfs para que acepte el servidor nfs
+  shell: 'sed -i "/LABEL=cloudimg-rootfs/a 172.31.94.71:/tmp/Pagina-web /tmp/Pagina-web  nfs auto,nofail,noatime,nolock,intr,tcp,actimeo=1800 0 0" /etc/fstab' 
+  args:
+    chdir: /home/ubuntu 
+
+- name: Reiniciamos el cliente nfs para aplicar los cambios
+  service:
+    name: ['nfs-client.target']
+    state: restarted
