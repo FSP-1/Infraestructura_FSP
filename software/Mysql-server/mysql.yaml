@@ -1,0 +1,6 @@
+---
+- hosts: Mysql-Server 
+  become: true
+  roles: 
+    - install-mysql
+

@@ -1,0 +1,16 @@
+---
+- name: Instalar Mysql Server
+  apt:
+    name: ['mysql-server'] 
+
+- name: Copiamos la base de datos a la maquina Mysql
+  copy: 
+    src: /home/ubuntu/Practica_FSP/software/Mysql-server/roles/install-mysql/templates/sql/Francodb.sql
+    dest: /tmp/Francodb.sql
+    owner: root
+    group: root
+
+- name: Creamos el usuario Franco y añadimos la bade de datos
+  shell: 'mysql -u root < /tmp/Francodb.sql' 
+  args:
+    chdir: /home/ubuntu 

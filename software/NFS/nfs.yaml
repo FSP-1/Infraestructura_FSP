@@ -1,4 +1,9 @@
 ---
+- hosts: NFS 
+  become: true
+  roles: 
+    - NFS_server
+
 - hosts: Brothers 
   become: true
   roles: 

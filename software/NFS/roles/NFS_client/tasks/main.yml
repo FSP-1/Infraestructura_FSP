@@ -10,20 +10,18 @@
     owner: root
     group: root
 
-- name: mount network share
-  ansible.posix.mount:
-    src: "172.31.94.71:/tmp/Pagina-web"
-    path: "/tmp/Pagina-web"
-    fstype: nfs4
-    opts: "rw,sync,no_root_squash,no_subtree_check"
-    state: mounted
-
-- name: configuramos el cliente nfs para que acepte el servidor nfs
-  shell: 'sed -i "/LABEL=cloudimg-rootfs/a 172.31.94.71:/tmp/Pagina-web /tmp/Pagina-web  nfs auto,nofail,noatime,nolock,intr,tcp,actimeo=1800 0 0" /etc/fstab' 
+- name: Montamos el directorio
+  shell: 'mount 172.31.94.71:/tmp/Pagina-Web /tmp/Pagina-Web' 
   args:
     chdir: /home/ubuntu 
 
+- name: configuramos el cliente nfs para que acepte el servidor nfs
+  shell: 'sed -i "/LABEL=cloudimg-rootfs/a 172.31.94.71:/tmp/Pagina-Web /tmp/Pagina-Web  nfs auto,nofail,noatime,nolock,intr,tcp,actimeo=1800 0 0" /etc/fstab' 
+  args:
+    chdir: /home/ubuntu 
+
+
 - name: Reiniciamos el cliente nfs para aplicar los cambios
-  service:
-    name: ['nfs-client.target']
-    state: restarted
+  shell: 'systemctl restart nfs-client.target' 
+  args:
+    chdir: /home/ubuntu 

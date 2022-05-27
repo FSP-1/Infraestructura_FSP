@@ -29,7 +29,7 @@ aws --version
 
 rm /etc/localtime
 ln -s /usr/share/zoneinfo/Europe/Madrid /etc/localtime	
- mkdir -p NFS/{inventory,group_vars,roles}
+ mkdir -p Mysql-server/{inventory,group_vars,roles}
 
  mkdir -p Docker-Build/{handlers,tasks,templates}
-  mkdir -p NFS_server/{handlers,tasks,templates}
+  mkdir -p install-mysql/{tasks,templates}

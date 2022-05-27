@@ -7,8 +7,8 @@
   file: 
     path: /tmp/Pagina-Web
     state: directory
-    owner: ubuntu
-    group: ubuntu
+    owner: root
+    group: root
 
 - name: Añadimos lo que queremos compartir
   shell: 'echo "/tmp/Pagina-Web 172.31.0.0/16(rw,sync,no_root_squash,no_subtree_check)" > /etc/exports' 

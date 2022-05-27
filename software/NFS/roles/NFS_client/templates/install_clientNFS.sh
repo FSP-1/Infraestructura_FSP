@@ -6,7 +6,7 @@
 
 apt-get install nfs-common -y
 #
-mount 172.31.94.71:/tmp/Pagina-web /tmp/Pagina-web
+mount 172.31.94.71:/tmp/Pagina-Web /tmp/Pagina-Web
 #
 
  sed -i "/LABEL=cloudimg-rootfs/a 172.31.94.71:/tmp/Pagina-web /tmp/Pagina-web  nfs auto,nofail,noatime,nolock,intr,tcp,actimeo=1800 0 0" /etc/fstab
