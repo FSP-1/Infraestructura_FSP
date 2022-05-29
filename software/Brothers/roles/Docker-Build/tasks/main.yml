@@ -1,0 +1,15 @@
+---
+- name: Copiamos el docker-compose.yml en los hosts Brothers
+  copy:
+    src: /home/ubuntu/Practica_FSP/software/Brothers/roles/Docker-Build/Pagina-Web 
+    dest: /tmp/
+
+- name: Ejecutamos el docker-compose.yml
+  shell:  'docker-compose down'
+  args:
+    chdir: /tmp/Pagina-Web 
+
+- name: Ejecutamos el docker-compose.yml
+  shell:  'docker-compose up -d'
+  args:
+    chdir: /tmp/Pagina-Web 

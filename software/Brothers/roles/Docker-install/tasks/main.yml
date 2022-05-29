@@ -1,0 +1,38 @@
+---
+- name: Descargamos el script de  docker 
+  shell: ' curl -fsSL https://get.docker.com -o get-docker.sh'
+  args:
+    chdir: /tmp/
+
+- name: Le añadimos permiso de ejecución al script
+  shell: 'chmod +x get-docker.sh'
+  args:
+    chdir: /tmp/
+
+- name: Ejecutamos el script
+  shell: './get-docker.sh'
+  args:
+    chdir: /tmp/
+  
+- name: Iniciamos el servicio Docker
+  shell:  'systemctl start docker'
+  args:
+    chdir: /home/ubuntu 
+
+- name: Iniciamos el servicio Docker
+  shell:  'systemctl enable docker'
+  args:
+    chdir: /home/ubuntu 
+
+- name: Añadimos nuestro usuario al grupo Docker
+  shell:  ' usermod -aG docker {{ USER_NAME }}'
+  args:
+    chdir: /home/ubuntu 
+
+- name: Instalamos mysql y algunas dependencias para que podamos aplicar el modulo  community.mysql 
+  apt:
+    pkg: "{{ item }}"
+    update-cache: yes
+    state: latest
+  with_items:
+    - docker-compose

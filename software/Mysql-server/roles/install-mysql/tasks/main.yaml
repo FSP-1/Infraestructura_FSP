@@ -1,7 +1,19 @@
 ---
-- name: Instalar Mysql Server
+- name: Instalamos mysql y algunas dependencias para que podamos aplicar el modulo  community.mysql 
   apt:
-    name: ['mysql-server'] 
+    pkg: "{{ item }}"
+    update-cache: yes
+    state: latest
+  with_items:
+    - mysql-server
+    - libmysqlclient-dev
+    - python3-mysqldb
+    - python3-pip
+
+- name: Creamos el usuario Franco y añadimos la bade de datos
+  shell: 'rm /tmp/Francodb.sql'
+  args:
+    chdir: /tmp/
 
 - name: Copiamos la base de datos a la maquina Mysql
   copy: 
@@ -10,7 +22,24 @@
     owner: root
     group: root
 
-- name: Creamos el usuario Franco y añadimos la bade de datos
-  shell: 'mysql -u root < /tmp/Francodb.sql' 
+- name: Añadimos la bade de datos
+  shell:  'mysql -u root < /tmp/Francodb.sql'
+  args:
+    chdir: /home/ubuntu 
+
+- name: Creamos el usuario Franco y le damos todos los permisos de la base de datos a el
+  community.mysql.mysql_user:
+    name: "'Franco'@'172.31.%'" 
+    password: 11Ww222Ee
+    priv: 'Franco_db.*:ALL'
+    state: present
+
+- name: Configuramos MySQL para aceptar conexiones desde cualquier interfaz de red
+  shell:  'sed -i "s/127.0.0.1/0.0.0.0/" /etc/mysql/mysql.conf.d/mysqld.cnf'
+  args:
+    chdir: /home/ubuntu 
+
+- name: Reiniciamos el servicio de MySQL
+  shell:  'systemctl restart mysql'
   args:
     chdir: /home/ubuntu 
