@@ -1,6 +1,7 @@
 - name: Automatización Para Balancer
-  hosts: Balanceador 
+  hosts: Balancer 
   become: true
   roles: 
-   - role: balancer
+    - balancer
+    - HTPPS
    

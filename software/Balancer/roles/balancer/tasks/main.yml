@@ -1,0 +1,26 @@
+---
+- name:  Actualizamos el sistema
+  shell: 'apt update'
+  args:
+    chdir: /tmp/
+
+- name: Instalamos El servidor NGINX
+  apt:
+    pkg: "{{ item }}"
+    update-cache: yes
+    state: latest
+  with_items:
+    - nginx
+
+- name:  Copiamos el fichero de Configuración de Nginx
+  template:
+    src: templates/default_balancer.j2 
+    dest: /etc/nginx/sites-available/default
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Iniciamos el servicio Docker
+  shell:  'systemctl restart nginx'
+  args:
+    chdir: /home/ubuntu 

@@ -1,0 +1,28 @@
+---
+- name:   Realizams la instalacion de snapd
+  shell: 'snap install core'
+  args:
+    chdir: /tmp/
+
+- name:   Realizams la instalacion de snapd
+  shell: 'snap refresh core'
+  args:
+    chdir: /tmp/
+
+- name: Eliminamos instalaciones previas de certbot con apt
+  shell: 'apt-get remove certbot'
+  args:
+    chdir: /tmp/
+
+- name:  Instalamos certbot con snap
+  shell: 'snap install --classic certbot'
+  args:
+    chdir: /tmp/
+
+- name: Solicitamos el certificado HTTPS
+  shell: certbot --nginx -m {{ EMAIL_HTPPS }} --agree-tos --no-eff-email -d {{ DOMAIN }}
+  args:
+    chdir: /home/ubuntu 
+
+- name: Reload nginx to activate specified site
+  service: name=nginx state=restarted

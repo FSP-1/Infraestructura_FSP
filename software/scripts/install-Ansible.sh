@@ -31,5 +31,6 @@ rm /etc/localtime
 ln -s /usr/share/zoneinfo/Europe/Madrid /etc/localtime	
  mkdir -p Mysql-server/{inventory,group_vars,roles}
 
- mkdir -p Docker-Build/{handlers,tasks,templates}
-  mkdir -p install-mysql/{tasks,templates}
+ mkdir -p Nagios/{group_vars,inventory,roles}
+  mkdir -p netdata/{tasks,templates}
+    mkdir -p nagios/{tasks,templates}
