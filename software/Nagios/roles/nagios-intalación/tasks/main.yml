@@ -1,0 +1,20 @@
+---
+- name:  Instalamos ssh y las dependencias necesarias para nagios 
+  shell: |
+    mkdir /usr/local/nagios/etc/servers
+  args:
+    chdir: /tmp/
+
+- name: Config nº1  
+  template:
+    src: templates/resource.cfg
+    dest: /usr/local/nagios/etc/resource.cfg
+    group: nagios
+    owner: nagios
+
+- name: Config nº2
+  template:
+    src: templates/nagios.cfg
+    dest: /usr/local/nagios/etc/nagios.cfg
+    group: nagios
+    owner: nagios
