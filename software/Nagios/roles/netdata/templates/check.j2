@@ -1,14 +1,14 @@
 upstream backend-server1 {
-    server 18.211.211.97:19999;
+    server {{ IP_SERVER }}:19999;
     keepalive 64;
 }
 upstream backend-server2 {
-    server 3.213.153.105:19999;
+    server {{ IP_SERVER2 }}:19999;
     keepalive 64;
 }
      
 server {
-    listen 80;
+    listen 81;
     # uncomment the line if you want nginx to listen on IPv6 address
     #listen [::]:80;
 

@@ -1,0 +1,42 @@
+---
+- name:  Actualizamos el sistema
+  shell: 'apt update'
+  args:
+    chdir: /tmp/
+
+- name: Instalamos nginx
+  apt:
+    pkg: "{{ item }}"
+    update-cache: yes
+    state: latest
+  with_items:
+    - nginx
+
+- name: Configuración de Nginx
+  template:
+    src: templates/check.j2
+    dest: /etc/nginx/sites-available/check.conf
+    group: root
+    owner: root
+
+- name: Cambiamos al puerto 81
+  template:
+    src: templates/default
+    dest: /etc/nginx/sites-available/default
+    group: root
+    owner: root
+
+- name:  Avilitamos la pagina
+  shell: 'rm ../sites-enabled/check.conf'
+  args:
+    chdir: /etc/nginx/sites-available/
+
+- name:  Avilitamos la pagina
+  shell: 'ln check.conf ../sites-enabled/check.conf'
+  args:
+    chdir: /etc/nginx/sites-available/
+
+- name:  reiniciamos el sistema
+  shell: 'systemctl restart nginx'
+  args:
+    chdir: /tmp/

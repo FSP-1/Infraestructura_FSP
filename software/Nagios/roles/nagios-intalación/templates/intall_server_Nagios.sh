@@ -1,92 +1,123 @@
 #!/bin/bash
-# Variables de configuración 
-#----------------------------------------------------
-source config.sh
-#----------------------------------------------------
-
-# Instalación de Nagios server
-# Actualizamos el sistema
-apt update
-
+# Actualizamos los paquetes de la maquinas 
+apt update 
 #Instalamos ssh y el gestor de base de datos mongoDB 
 apt install ssh -y
-apt install mongodb -y
 
-#Instalamos nagios 4
-apt install wget unzip zip bash-completion apache2 libapache2-mod-php7.4 php7.4 net-tools autoconf gcc libc6 make apache2-utils libgd-dev libmcrypt-dev make libssl-dev bc gawk dc build-essential snmp libnet-snmp-perl gettext libldap2-dev smbclient fping default-libmysqlclient-dev -y
-wget https://assets.nagios.com/downloads/nagioscore/releases/nagios-4.3.4.tar.gz
-tar xzf nagios-4.3.4.tar.gz 
-mv nagios-4.3.4 /tmp/nagios4/
-rm -rf nagios-4.3.4.tar.gz
-cd /tmp/nagios4/
+#Instalamos las dependencias necesarias para nagios 
+apt install -y autoconf bc gawk dc build-essential gcc libc6 make wget unzip apache2 php libapache2-mod-php libgd-dev libmcrypt-dev make libssl-dev snmp libnet-snmp-perl gettext
+
+# Instalamos nagios
+wget https://assets.nagios.com/downloads/nagioscore/releases/nagios-4.4.6.tar.gz
+tar -xvf nagios-4.4.6.tar.gz 
+rm -rf nagios-4.4.6.tar.gz 
+mv nagios-4.4.6 nagios4
+cd nagios4
 ./configure --with-httpd-conf=/etc/apache2/sites-enabled
 make all
-useradd nagios
+make install-groups-users 
+usermod -a -G nagios www-data
 make install
 make install-init
 make install-commandmode
-systemctl enable nagios.service
 make install-config
 make install-webconf
+a2nmod rewrite cgi
 htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
-a2enmod cgi
-systemctl restart apache2 
-systemctl start nagios
+cd /home/ubuntu/....
+# Instalamos los plugins nagios para que nos permita monitorizar los parámetros de las máquinas remotas.
+apt install  nagios-nrpe-plugin monitoring-plugins -y
+
+cfg_file=/usr/local/nagios/etc/objects/observer.cfg
+cfg_file=/usr/local/nagios/etc/objects/Brother-ahs.cfg
+cfg_file=/usr/local/nagios/etc/objects/Brother-ember.cfg
+cfg_file=/usr/local/nagios/etc/objects/Balancer.cfg
+cfg_file=/usr/local/nagios/etc/objects/Mysql-server.cfg
+
+#---------------------------------------------
+---
+- hosts: Nagios 
+  become: true
+  roles: 
+    - netdata
+    - HTPPS
+
+- hosts: Nagios 
+  become: true
+  roles: 
+    - nagios-intalación
+
+- hosts: Nrpe 
+  become: true
+  roles: 
+    - nagios_cliente
+
+- hosts: Nagios 
+  become: true
+  roles: 
+    - nagios_config
+
+    
+# Configuraciones de ficheros nagios para el funcionamiento de la monitorización
+
+#---------------------------------------------
+
+# ficheros configurados
+mkdir /usr/local/nagios/etc/servers
+cp ../conf/resource.cfg /usr/local/nagios/etc/resource.cfg
+cp ../conf/host.cfg /usr/local/nagios/etc/servers/host.cfg
+chmod 775 /usr/local/nagios/etc
+chown nagios:nagios /usr/local/nagios/etc/servers/
+chown nagios:nagios /usr/local/nagios/etc/servers/host.cfg
+chmod 664 /usr/local/nagios/etc/servers/host.cfg
+
+# Reiniciamos el servicio para que los cambios se apliquen
+systemctl  restart apache2
+systemctl restart nagios
+
+systemctl  enable apache2
 systemctl enable nagios
 
 
-# Instalamos los plugins nagios para que nos permita monitorizar los parámetros de las máquinas remotas.
-cd /tmp/
-wget https://github.com/nagios-plugins/nagios-plugins/archive/release-2.2.1.tar.gz
-tar zxvf release-2.2.1.tar.gz 
-mv nagios-plugins-release-2.2.1  /tmp/nagios-plugin/
-rm -rf release-2.2.1.tar.gz
-cd /tmp/nagios-plugin/
-./tools/setup 
-./configure 
-make
-make install
-
-sudo systemctl restart nagios.service
+- name:  Instalamos ssh y las dependencias necesarias para nagios 
+  shell: |
+   apt install ssh -y
+   apt install -y autoconf bc gawk dc build-essential gcc libc6 make wget unzip apache2 php libapache2-mod-php libgd-dev libmcrypt-dev make libssl-dev snmp libnet-snmp-perl gettext
+  args:
+    chdir: /tmp/
 
 
-#---------------------------------------------
+- name:  Instalamos nagios parteNº1
+  shell: |
+   wget https://assets.nagios.com/downloads/nagioscore/releases/nagios-4.4.6.tar.gz
+   tar -xvf nagios-4.4.6.tar.gz 
+   rm -rf nagios-4.4.6.tar.gz 
+   mv nagios-4.4.6 nagios4
+  args:
+    chdir: /tmp/
 
-# Configuraciones de ficheros nagios para el funcionamiento de la monitorización personalizaa
+- name:  Instalamos nagios parteNº2
+  shell: |
+    ./configure --with-httpd-conf=/etc/apache2/sites-enabled
+    make all
+    make install-groups-users 
+    usermod -a -G nagios www-data
+    make install
+    make install-init
+    make install-commandmode
+    make install-config
+    make install-webconf
+    a2enmod rewrite cgi
+  args:
+    chdir: /tmp/nagios4
 
-#---------------------------------------------
+- name: Create nagios admin user
+  command: htpasswd -b -c /usr/local/nagios/etc/htpasswd.users nagiosadmin fsp
+  ignore_errors: true
+  become: true
 
-# Intalamos el demonio NRPE. Este demonio se encarga de ejecutar comandos check.
-cd /tmp/
-git clone https://github.com/NagiosEnterprises/nrpe.git 
-cd nrpe
-autoconf 
-./configure --enable-ssl
-make all
-make install
-make install-plugin
-make install-daemon
-make install-config
-make install-init
-systemctl enable nrpe 
-systemctl start nrpe
-
-#---------------------------------------------
-
-# Configuraciones de ficheros nagios para el funcionamiento de la monitorización personalizaa
-
-#---------------------------------------------
-cd /tmp/
-wget https://github.com/mongodb/mongo-python-driver/archive/2.7rc1.tar.gz
-tar xvf 2.7rc1.tar.gz
-rm -rf 2.7rc1.tar.gz
-cd mongo-python-driver-2.7rc1/
-python setup.py install
-mv check_mongodb.py /usr/local/nagios/libexec/
-cd /home/ubuntu/Practica_FSP/software/scripts
-# Cambiamos el fichero nrpe.cfg para permitir el acceso al servidor Nagios añadiendo su ip
-cp ../conf/nrpe.cfg  /usr/local/nagios/etc/nrpe.cfg
-
-# Reiniciamos el servicio para que los cambios se apliquen
-systemctl  restart nrpe
-
+- name:  Instalamos los plugins nagios para que nos permita monitorizar los parámetros de las máquinas remotas. 
+  shell: |
+    apt install  nagios-nrpe-plugin monitoring-plugins -y
+  args:
+    chdir: /tmp/nagios4
