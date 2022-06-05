@@ -1,0 +1,26 @@
+---
+- name:  Instalamos los plugins nagios para que nos permita monitorizar los parámetros de las máquinas remotas. 
+  shell: |
+    apt install nagios-nrpe-server  nagios-plugins -y
+  args:
+    chdir: /tmp/
+
+- name: Config nº1  
+  template:
+    src: templates/nrpe.cfg
+    dest: /etc/nagios/nrpe.cfg
+    group: root
+    owner: root
+
+- name:  Permisos
+  shell: |
+   chmod 644 /etc/nagios/nrpe.cfg
+  args:
+    chdir: /tmp/
+  
+- name:  Permisos
+  shell: |
+    systemctl  restart nagios-nrpe-server
+    systemctl  enable nagios-nrpe-server
+  args:
+    chdir: /tmp/

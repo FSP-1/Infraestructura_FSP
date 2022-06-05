@@ -1,0 +1,49 @@
+---
+- name: Balancer host
+  template:
+    src: templates/Balancer.cfg
+    dest: /usr/local/nagios/etc/servers/Balancer.cfg
+    group: nagios
+    owner: nagios
+    
+- name: Brother-ahs host
+  template:
+    src: templates/Brother-ahs.cfg
+    dest: /usr/local/nagios/etc/servers/Brother-ahs.cfg
+    group: nagios
+    owner: nagios
+
+- name: Brother-ember host
+  template:
+    src: templates/Brother-ember.cfg
+    dest: /usr/local/nagios/etc/servers/Brother-ember.cfg
+    group: nagios
+    owner: nagios
+
+- name: Mysql-server host
+  template:
+    src: templates/Mysql-server.cfg
+    dest: /usr/local/nagios/etc/servers/Mysql-server.cfg
+    group: nagios
+    owner: nagios
+
+- name: Config nº4
+  template:
+    src: templates/contacts.cfg
+    dest: /usr/local/nagios/etc/objects/contacts.cfg
+    group: nagios
+    owner: nagios
+
+- name:  Permisos
+  shell: |
+   chmod 664 /usr/local/nagios/etc/servers/*
+   chmod 664 /usr/local/nagios/etc/objects/*
+   chmod 775 /usr/local/nagios/etc/servers/
+  args:
+    chdir: /tmp/
+
+- name:  Reiniciamos para que se aplique todo
+  shell: |
+      systemctl restart nagios
+  args:
+    chdir: /tmp/

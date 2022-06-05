@@ -1,6 +1,49 @@
 ---
 - name:  Instalamos ssh y las dependencias necesarias para nagios 
   shell: |
+   apt install ssh -y
+   apt install -y autoconf bc gawk dc build-essential gcc libc6 make wget unzip apache2 php libapache2-mod-php libgd-dev libmcrypt-dev make libssl-dev snmp libnet-snmp-perl gettext
+  args:
+    chdir: /tmp/
+
+
+- name:  Instalamos nagios parteNº1
+  shell: |
+   wget https://assets.nagios.com/downloads/nagioscore/releases/nagios-4.4.6.tar.gz
+   tar -xvf nagios-4.4.6.tar.gz 
+   rm -rf nagios-4.4.6.tar.gz 
+   mv nagios-4.4.6 nagios4
+  args:
+    chdir: /tmp/
+
+- name:  Instalamos nagios parteNº2
+  shell: |
+    ./configure --with-httpd-conf=/etc/apache2/sites-enabled
+    make all
+    make install-groups-users 
+    usermod -a -G nagios www-data
+    make install
+    make install-init
+    make install-commandmode
+    make install-config
+    make install-webconf
+    a2enmod rewrite cgi
+  args:
+    chdir: /tmp/nagios4
+
+- name: Create nagios admin user
+  command: htpasswd -b -c /usr/local/nagios/etc/htpasswd.users nagiosadmin fsp
+  ignore_errors: true
+  become: true
+
+- name:  Instalamos los plugins nagios para que nos permita monitorizar los parámetros de las máquinas remotas. 
+  shell: |
+    apt install  nagios-nrpe-plugin monitoring-plugins -y
+  args:
+    chdir: /tmp/nagios4
+
+- name: creamos la carpeta server para guardar los hosts
+  shell: |
     mkdir /usr/local/nagios/etc/servers
   args:
     chdir: /tmp/
@@ -18,3 +61,28 @@
     dest: /usr/local/nagios/etc/nagios.cfg
     group: nagios
     owner: nagios
+
+- name: Config nº3
+  template:
+    src: templates/commands.cfg
+    dest: /usr/local/nagios/etc/objects/commands.cfg
+    group: nagios
+    owner: nagios
+
+- name:  Instalamos ssh y las dependencias necesarias para nagios 
+  shell: |
+   chmod 660 /usr/local/nagios/etc/resource.cfg
+   chmod 775 /usr/local/nagios/etc/servers
+   chown nagios:nagios /usr/local/nagios/etc/servers/
+   chmod 664 /usr/local/nagios/etc/objects/*
+  args:
+    chdir: /tmp/
+
+- name:  Instalamos ssh y las dependencias necesarias para nagios 
+  shell: |
+      systemctl  restart apache2
+      systemctl restart nagios
+      systemctl  enable apache2
+      systemctl enable nagios
+  args:
+    chdir: /tmp/

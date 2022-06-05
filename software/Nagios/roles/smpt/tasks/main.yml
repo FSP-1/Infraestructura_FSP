@@ -1,0 +1,19 @@
+---
+- name:  Intslamos el servidor de correo
+  shell: 'apt install ssmtp -y'
+  args:
+    chdir: /tmp/
+
+- name: Conf del servidor de correo
+  template:
+    src: templates/ssmtp.conf
+    dest: /etc/ssmtp/ssmtp.conf
+    group: root
+    owner: root
+
+- name:  Permisos
+  shell: 'chmod 640 /etc/ssmtp/ssmtp.conf'
+  args:
+    chdir: /tmp/
+
+    

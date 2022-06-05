@@ -1,7 +1,8 @@
----
+---    
+
 - hosts: Nagios 
   become: true
   roles: 
-    - nagios-intalación
+    - smpt
 
-    
+

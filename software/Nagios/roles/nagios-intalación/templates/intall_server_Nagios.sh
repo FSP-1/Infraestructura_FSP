@@ -35,7 +35,7 @@ cfg_file=/usr/local/nagios/etc/objects/Balancer.cfg
 cfg_file=/usr/local/nagios/etc/objects/Mysql-server.cfg
 
 #---------------------------------------------
----
+---    
 - hosts: Nagios 
   become: true
   roles: 
@@ -56,6 +56,7 @@ cfg_file=/usr/local/nagios/etc/objects/Mysql-server.cfg
   become: true
   roles: 
     - nagios_config
+
 
     
 # Configuraciones de ficheros nagios para el funcionamiento de la monitorización
