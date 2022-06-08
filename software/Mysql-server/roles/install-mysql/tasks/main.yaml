@@ -10,26 +10,21 @@
     - python3-mysqldb
     - python3-pip
 
-- name: Creamos el usuario Franco y añadimos la bade de datos
-  shell: 'rm /tmp/Francodb.sql'
-  args:
-    chdir: /tmp/
-
 - name: Copiamos la base de datos a la maquina Mysql
-  copy: 
-    src: /home/ubuntu/Practica_FSP/software/Mysql-server/roles/install-mysql/templates/sql/Francodb.sql
-    dest: /tmp/Francodb.sql
+  template: 
+    src: templates/sql/salacomentarios.sql
+    dest: /tmp/salacomentarios.sql
     owner: root
     group: root
 
 - name: Añadimos la bade de datos
-  shell:  'mysql -u root < /tmp/Francodb.sql'
+  shell:  'mysql -u root < /tmp/salacomentarios.sql'
   args:
     chdir: /home/ubuntu 
 
 - name: Creamos el usuario Franco y le damos todos los permisos de la base de datos a el
   community.mysql.mysql_user:
-    name: "'Franco'@'172.31.%'" 
+    name: Franco
     password: 11Ww222Ee
     priv: 'Franco_db.*:ALL'
     state: present

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<style>
+body  {
+  font: normal 10px arial, helvetica, sans-serif;
+  background: #002;
+  margin: 0
+  }
+ 
+
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.topnav .a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 20px 15px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+  
+.topnav .a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+
+.split {
+  float: right;
+
+}
+
+body {font-family: Arial, Helvetica, sans-serif;}
+
+/* Full-width input fields */
+input[type=text], input[type=password],input[type=email]  {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+button {
+  background-color: #008;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 5px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+
+
+
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+  span.psw {
+     display: block;
+     float: none;
+  }
+  .cancelbtn {
+     width: 100%;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+
+
+
+/* Create three equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 33.33%;
+  padding: 0px;
+  text-align: center;
+  height: 690px; /* Should be removed. Only for demonstration */
+    background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+
+}
+#p {
+  text-align: left;
+}
+
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Style the footer */
+
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+  background-color: #1898;
+   color: white;
+   text-align: center;
+}
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media (max-width: 600px) {
+  .column {
+    width: 100%;
+  }
+}
+
+#glow {
+  color: white;
+  text-align: center;
+  animation: glow 1s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes glow {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #0800e6, 0 0 40px #0800e6, 0 0 50px #0800e6, 0 0 60px #0800e6, 0 0 70px #0800e6;
+  }
+  
+  to {
+    text-shadow: 0 0 20px #fff, 0 0 30px #1378e4, 0 0 40px #1378e4, 0 0 50px #1378e4, 0 0 60px #1378e4, 0 0 70px #1378e4, 0 0 80px #1378e4;
+  }
+}
+
+.zoom {
+  padding: 50px;
+  background-color: rgb(231, 231, 231);
+  transition: transform .2s;
+  width: 50px;
+  height:50px;
+  margin: 0 auto;
+}
+
+.zoom:hover {
+  -ms-transform: scale(1.5); /* IE 9 */
+  -webkit-transform: scale(1.5); /* Safari 3-8 */
+  transform: scale(1.5); 
+}
+::-moz-selection { /* Code for Firefox */
+  color: rgb(255, 255, 255);
+  background: rgb(0, 0, 0);
+}
+
+#myContainer {
+  width: 400px;
+  height: 400px;
+  position: relative;
+  background: rgb(0, 123, 70);
+  margin: 0 auto;
+
+}
+#myAnimation {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  background-color: rgb(156, 255, 128);
+}
+#a {
+  width: auto;
+  padding: 10px 18px;
+  background-color: #23b465;
+}
+</style>
+</head>
+<body>
+
+  <div class="topnav">
+    <a  href="index.html" class='a' id="glow">Home</a>
+    <a href="aver2.html" class='a' id="glow">HTML</a>
+    <a href="aver3.html" class='a' id="glow">CSS</a>
+    <a href="aver4.html" class='a' id="glow">PHP</a>
+    <a href="a.php" class='a' id="glow">SHELL</a>
+    <button  class="split"  style="width:auto;"><a href="chat/index.php"  id="glow">Chat</a></button>
+  </div>
+<div class="row">
+  <div class="column"  >
+ <h1> <p> HTML</p></h1>
+ <p id="p" >Soy partidaria de planificar un texto siempre que es complejo, es decir, si por alguna razón hay que comunicar varias ideas de cierta complicación en un mismo texto. Pero si el texto o el documento es largo, es totalmente necesario. Cada uno tiene sus fórmulas, yo sigo siendo muy amante del papel para hacer esquemas, aunque luego el documento definitivo lo escriba directamente en el ordenador y trabaje sobre esa versión. Así que, lo primero siempre será tener claro qué quieres conseguir con ese documento, es decir, tu objetivo, y el mensaje, o mensajes principales a transmitir. Intenta que sea uno el principal o los menos posibles. El siguiente paso, cuando tienes que redactar algún tipo de informe, presentación o documento largo, es hacer un esquema incluyendo las ideas principales que debe contener, y los apartados en los que vamos a separar esas ideas que pueden coincidir o no. Para que te resulte más sencillo, piensa en el esquema como el índice del documento, ¿qué apartados va a tener. Bien porque tú quieras incluirlos o porque el tipo de documento que escribes tiene una estructura concreta a la que debas ceñirte. Cuando tengas claro esos apartados tendrás que ordenarlos y jerarquizarlos, en qué orden los vas a escribir, o mejor aún, en qué orden deben leerse para que se entienda todo correctamente. Puedes, simplemente, ir numerando los apartados que habías escrito previamente, ahora, lee los apartados en el orden que has puesto. ¿Tiene sentido? ¿Has puesto primero lo más importante y después la información complementaria? ¿O has elegido una estructura temporal? Me refiero a que pongas primero lo más reciente, y después lo más antiguo o al revés, dependiendo del tipo de documento, tendrá más sentido una estructura u otra. Cuando esté completo el documento, al revisarlo es posible que eches en falta alguna información o algún </p>
+  
+  </div>
+  <div class="column" >
+    <h1> <p> CSS</p></h1>
+    <div class="zoom"></div>
+  </div>
+  <div class="column" >
+    <h1> <p> JavaScript</p></h1>
+
+    <p>
+      <button id="a" onclick="myMove()">Hazme click</button> 
+      </p>
+      
+      <div id ="myContainer">
+      <div id ="myAnimation"></div>
+      </div>
+      
+  </div>
+</div>
+<div class="row">
+  <div class="column"  >
+ <h1> <p> PHP</p></h1>
+<p>a</p>  
+  </div>
+  <div class="column" >
+    <h1> <p> shell</p></h1>
+    <div class="zoom"></div>
+  </div>
+  <div class="column" >
+    <h1> <p> JavaScript</p></h1>
+
+    <p>
+      <button id="a" onclick="myMove()">Hazme click</button> 
+      </p>
+      
+      <div id ="myContainer">
+      <div id ="myAnimation"></div>
+      </div>
+      
+  </div>
+</div>
+<div class="footer">
+<p id="glow">© 2022 Franco Sergio Pereyra</p></div>
+<script>
+// Get the modal
+var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+// Get the modal
+var modal = document.getElementById('id02');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+<script>
+  var id = null;
+  function myMove() {
+    var elem = document.getElementById("myAnimation");   
+    var pos = 0;
+    clearInterval(id);
+    id = setInterval(frame, 10);
+    function frame() {
+      if (pos == 350) {
+        clearInterval(id);
+      } else {
+        pos++; 
+        elem.style.top = pos + 'px'; 
+        elem.style.left = pos + 'px'; 
+      }
+    }
+  }
+  </script>
+
+
+</body>
+</html>
