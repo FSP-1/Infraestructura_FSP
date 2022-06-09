@@ -33,11 +33,6 @@ CREATE TABLE `salacomentarios` (
 --
 -- Volcado de datos para la tabla `salacomentarios`
 --
-INSERT INTO `salacomentarios` (`id`, `user_presente`, `user_presente_photo`, `msjUser`, `dateMsjs`, `HoursMsjs`) VALUES
-(294, 'Host TURS', 'Host TURS6f371c81d3.webp', 'bienvenidosd sytodsadasdasd', '05/01/2022 01:57 pm', '01:57 pm'),
-(295, 'Host TURS', 'Host TURS6f371c81d3.webp', 'hola quien esta alli', '05/01/2022 01:57 pm', '01:57 pm'),
-(296, 'Host TURS', 'Host TURS6f371c81d3.webp', 'podrian saludade', '05/01/2022 01:57 pm', '01:57 pm');
-INSERT INTO salacomentarios VALUES (1, 'Host TURS', 'Host TURS6f371c81d3.webp', 'bienvenidosd sytodsadasdasd', '05/01/2022 01:57 pm', '01:57 pm'),
 
 
 

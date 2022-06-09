@@ -27,12 +27,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(move_uploaded_file($sourceFoto, $target_path)) {
 
 		//IMPORTANTE: Creando la COOKIE del usuario nuevo que se acaba de registrar
-		$miCookies = "user_presente";
-		setcookie("$miCookies", $nameUser, time() + (43200),"/chat/","fspcorp.ddns.net"); //86400 = 1 dia y 43200 = 12 horas
-	
-		$miCookies = "user_presente_photo";
-		setcookie("$miCookies", $nuevoNameFoto, time() + (43200),"/chat/","fspcorp.ddns.net");
+		$miCookies1 = "user_presente";
+		setcookie('$miCookies1', '$nameUser', time() + (43200),'/','.fspcorp.ddns.net',true); //1 dia y 12 horas
 
+		$miCookies2 = "user_presente_photo";
+		setcookie("$miCookies2", "$nuevoNameFoto", time() + (43200),"/",NULL,true);
    }
 
    header('Location: ./');

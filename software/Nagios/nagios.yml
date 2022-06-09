@@ -1,8 +1,22 @@
 ---    
+- hosts: Nagios 
+  become: true
+  roles: 
+    - netdata
+    - HTPPS
 
 - hosts: Nagios 
   become: true
   roles: 
-    - smpt
+    - nagios-intalación
 
+- hosts: Nrpe 
+  become: true
+  roles: 
+    - nagios_cliente
+
+- hosts: Nagios 
+  become: true
+  roles: 
+    - nagios_config
 
