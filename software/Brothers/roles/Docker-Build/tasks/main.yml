@@ -1,8 +1,5 @@
 ---
-- name: Paramos el docker-compose.yml
-  shell:  'docker-compose down  -v'
-  args:
-    chdir: /tmp/Pagina-Web 
+
 
 - name: Ejecutamos el docker-compose.yml
   shell:  'rm -rf *'
@@ -13,7 +10,10 @@
   copy:
     src: ../Pagina-Web 
     dest: /tmp/
-
+- name: Paramos el docker-compose.yml
+  shell:  'docker-compose down  -v'
+  args:
+    chdir: /tmp/Pagina-Web 
 
 
 
