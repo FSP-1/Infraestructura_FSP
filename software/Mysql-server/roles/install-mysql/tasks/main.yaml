@@ -38,3 +38,6 @@
   shell:  'systemctl restart mysql'
   args:
     chdir: /home/ubuntu 
+
+
+    

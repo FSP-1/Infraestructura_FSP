@@ -7,7 +7,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 	$filename        = $_FILES['photoUser']['name'];
 	$sourceFoto      = $_FILES['photoUser']['tmp_name'];
 
-
 	$logitudName    = 10;
 	$StringName     = substr( md5(microtime()), 1, $logitudName);
 
@@ -16,7 +15,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 	$extension_foto = array_pop($explode);
 	$nuevoNameFoto  = $newNameFoto.'.'.$extension_foto;
 	
-	$directorio = "fotosUsers/";
+	$directorio = "/var/www/html/chat/fotoUsers";
 
 	if (!file_exists($directorio)) {
 		mkdir($directorio, 0777, true);
@@ -24,14 +23,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 	$dir = opendir($directorio);
 
 	$target_path = $directorio.'/'.$nuevoNameFoto;
+
+
+
     if(move_uploaded_file($sourceFoto, $target_path)) {
+
 
 		//IMPORTANTE: Creando la COOKIE del usuario nuevo que se acaba de registrar
 		$miCookies1 = "user_presente";
-		setcookie('$miCookies1', '$nameUser', time() + (43200),'/','.fspcorp.ddns.net',true); //1 dia y 12 horas
+		setcookie("$miCookies1", "$nameUser", time() + (43200),'/'); //1 dia y 12 horas
 
 		$miCookies2 = "user_presente_photo";
-		setcookie("$miCookies2", "$nuevoNameFoto", time() + (43200),"/",NULL,true);
+		setcookie("$miCookies2", "$nuevoNameFoto", time() + (43200),"/",);
    }
 
    header('Location: ./');
