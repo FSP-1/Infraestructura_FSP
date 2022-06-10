@@ -1,5 +1,5 @@
 ---
-- name: Lanzamos las instancias 
+- name: Lanzamos las instancias de Brother Ember
   ec2_instance:
           key_name: "{{ keypair }}" 
           security_group: "{{ SECURIRY_GROUP }}" 
@@ -12,7 +12,7 @@
               Name: "{{INSTANCE_NAME_WWW1}}"
   register: ec2
 
-- name: Lanzamos las instancias 
+- name: Lanzamos las instancias Brother Ahs
   ec2_instance:
           key_name: "{{ keypair }}" 
           security_group: "{{ SECURIRY_GROUP }}" 
@@ -25,7 +25,7 @@
               Name: "{{INSTANCE_NAME_WWW2}}"
   register: ec2
 
-- name: Lanzamos las instancias 
+- name: Lanzamos la instancia Balancer
   ec2_instance:
           key_name: "{{ keypair }}" 
           security_group: "{{ SECURIRY_GROUP3 }}" 
@@ -38,7 +38,7 @@
               Name: "{{INSTANCE_NAME_BALANCER}}"
   register: ec2
 
-- name: Lanzamos las instancias 
+- name: Lanzamos la instancia de NFS
   ec2_instance:
           key_name: "{{ keypair }}" 
           security_group: "{{ SECURIRY_GROUP4 }}" 
@@ -51,7 +51,7 @@
               Name: "{{INSTANCE_NAME_SERVER}}"
   register: ec2
 
-- name: Lanzamos las instancias 
+- name: Lanzamos la instancia Nagios
   ec2_instance:
           key_name: "{{ keypair }}" 
           security_group: "{{ SECURIRY_GROUP5 }}" 
@@ -64,7 +64,7 @@
               Name: "{{INSTANCE_NAME_NAGIOS}}"
   register: ec2
 
-- name: Lanzamos las instancias 
+- name: Lanzamos la instancia Mysql-server
   ec2_instance:
           key_name: "{{ keypair }}" 
           security_group: "{{ SECURIRY_GROUP7 }}" 

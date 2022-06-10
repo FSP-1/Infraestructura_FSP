@@ -1,0 +1,5 @@
+---
+- name: "Create Elastic IP"
+  shell: ./01_end.sh
+  args:
+      chdir: /home/ubuntu/Practica_FSP/infractrutura/DeleteEC2/roles/Borrar-intances

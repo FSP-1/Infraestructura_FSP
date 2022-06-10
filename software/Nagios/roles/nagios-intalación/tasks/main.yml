@@ -31,7 +31,7 @@
   args:
     chdir: /tmp/nagios4
 
-- name: Create nagios admin user
+- name: Creamos nagios admin user
   command: htpasswd -b -c /usr/local/nagios/etc/htpasswd.users nagiosadmin fsp
   ignore_errors: true
   become: true
@@ -69,7 +69,7 @@
     group: nagios
     owner: nagios
 
-- name:  Instalamos ssh y las dependencias necesarias para nagios 
+- name:  Permisos
   shell: |
    chmod 660 /usr/local/nagios/etc/resource.cfg
    chmod 775 /usr/local/nagios/etc/servers
@@ -78,7 +78,7 @@
   args:
     chdir: /tmp/
 
-- name:  Instalamos ssh y las dependencias necesarias para nagios 
+- name:  Reiniciamos
   shell: |
       systemctl  restart apache2
       systemctl restart nagios

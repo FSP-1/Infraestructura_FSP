@@ -18,7 +18,7 @@ set -x
 # Instalamos Boto Framework - AWS SDK para que ansible pueda llegar a AWS usando boto SDK
  pip install boto boto3
  apt-get install python3-boto -y
-#
+# Intalamos AWSCLI 
 apt install zip -y
 cd /tmp/
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
@@ -29,8 +29,9 @@ aws --version
 
 rm /etc/localtime
 ln -s /usr/share/zoneinfo/Europe/Madrid /etc/localtime	
- mkdir -p Mysql-server/{inventory,group_vars,roles}
 
- mkdir -p Nagios/{group_vars,inventory,roles}
-  mkdir -p netdata/{tasks,templates}
-    mkdir -p nagios/{tasks,templates}
+ssh-keygen
+
+scp -i IAW2.pem ubuntu@54.173.51.24:/home/ubuntu/.ssh/id_rsa.pub .
+
+## cat id_rsa.pub | ssh -i aws-ansible.pem ubuntu@18.206.58.248 "cat - >> /home/ubuntu/.ssh/authorized_keys2"

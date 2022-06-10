@@ -1,3 +1,8 @@
+<?php
+//si exite la varible $_COOKIE['user-presente'] no mostramos el formulario
+if(!isset($_COOKIE['user_presente'])){ 
+  include('modal-Inicio.php'); 
+}?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -19,11 +24,7 @@
   </head>
 <body>
     
-<?php
-//si exite la varible $_COOKIE['user-presente'] no mostramos el formulario
-if(!isset($_COOKIE['user_presente'])){ 
-  include('modal-Inicio.php'); 
-}?>
+
 
     <div class="chat">
         <div class="chat-texts">
