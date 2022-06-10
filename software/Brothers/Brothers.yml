@@ -1,4 +1,4 @@
 - hosts: Brothers 
   become: true
-  roles: 
+  roles:     
     - Docker-Build
