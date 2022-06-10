@@ -1,0 +1,8 @@
+---
+- hosts: localhost 
+  become: true
+
+  roles: 
+    - eliminar-group-intances
+    - Borrar-intances
+    - Eliminar-ip-elastica

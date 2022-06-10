@@ -1,0 +1,5 @@
+---
+- name: "Create Elastic IP"
+  shell: ./02_delete_all_security_groups.sh
+  args:
+      chdir: /home/ubuntu/Practica_FSP/infractrutura/DeleteEC2/roles/eliminar-group-intances

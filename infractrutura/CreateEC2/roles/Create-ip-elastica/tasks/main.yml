@@ -1,5 +1,5 @@
 ---
-- name: "Create Elastic IP"
+- name: "Creamos las  Elastic IP"
   shell: ./06_Create_ip_elastica.sh
   args:
       chdir: /home/ubuntu/Practica_FSP/infractrutura/CreateEC2/roles/Create-ip-elastica

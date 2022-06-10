@@ -20,7 +20,7 @@
     chdir: /tmp/
 
 - name: Solicitamos el certificado HTTPS
-  shell: certbot --nginx -m {{ EMAIL_HTPPS }} --agree-tos --no-eff-email -d {{ DOMAIN }}
+  shell: certbot --apache2 -m {{ EMAIL_HTPPS }} --agree-tos --no-eff-email -d {{ DOMAIN }}
   args:
     chdir: /home/ubuntu 
 

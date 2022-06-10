@@ -1,0 +1,2 @@
+[localhost]
+3.86.97.63 ansible_user=ubuntu ansible_connection=ssh 
