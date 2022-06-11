@@ -1,6 +1,6 @@
 [Brothers]
-52.4.175.0  ansible_user=ubuntu ansible_connection=ssh 
-52.200.2.147 ansible_user=ubuntu ansible_connection=ssh 
+3.233.31.203 ansible_user=ubuntu ansible_connection=ssh 
+52.20.167.206 ansible_user=ubuntu ansible_connection=ssh 
 
 [NFS]
 3.86.201.241 ansible_user=ubuntu ansible_connection=ssh 

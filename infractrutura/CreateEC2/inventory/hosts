@@ -1,2 +1,2 @@
 [localhost]
-54.173.41.207 ansible_user=ubuntu ansible_connection=ssh 
+44.201.108.234 ansible_user=ubuntu ansible_connection=ssh 
