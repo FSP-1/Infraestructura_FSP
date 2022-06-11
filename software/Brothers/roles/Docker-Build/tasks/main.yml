@@ -1,22 +1,17 @@
 ---
-- name: Paramos el docker-compose.yml
-  shell:  'docker-compose down  -v'
-  args:
-    chdir: /tmp/Pagina-Web 
-
-- name: Ejecutamos el docker-compose.yml
-  shell:  'rm -rf *'
-  args:
-    chdir: /tmp/Pagina-Web 
 
 - name: Copiamos el docker-compose.yml en los hosts Brothers
   copy:
     src: ../Pagina-Web 
-    dest: /tmp/
-
-
+    dest: /home/ubuntu/
 
 - name: Ejecutamos el docker-compose.yml
   shell:  'docker-compose up -d'
   args:
-    chdir: /tmp/Pagina-Web 
+    chdir: /home/ubuntu/ 
+
+
+- name: Damos permisos a apache 
+  shell:  'sudo chown -R www-data:www-data *'
+  args:
+    chdir: /home/ubuntu/src/chat/

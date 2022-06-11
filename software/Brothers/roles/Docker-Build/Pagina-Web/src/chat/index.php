@@ -43,9 +43,7 @@ if(!isset($_COOKIE['user_presente'])){
           <!-- <div class="attachment"><i class="lni lni-upload"></i></div> -->
 
           </div>
-          <button type="submit" name="btnSend" id="btnSend">
-            <i class="lni lni-arrow-right-circle"></i>
-          </button>
+   
 
         </div>
       
