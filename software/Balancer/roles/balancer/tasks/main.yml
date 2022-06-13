@@ -20,7 +20,7 @@
     group: root
     mode: '0644'
 
-- name: Iniciamos el servicio Docker
+- name: Reiniciamos el servicio nginx para aplicar los cambios
   shell:  'systemctl restart nginx'
   args:
     chdir: /home/ubuntu 

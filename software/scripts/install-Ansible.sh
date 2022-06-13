@@ -35,6 +35,8 @@ ssh -i "IAW2.pem" ubuntu@ec2-3-233-31-203.compute-1.amazonaws.com
 
 scp -i IAW2.pem ubuntu@54.173.51.24:/home/ubuntu/.ssh/id_rsa.pub .
 ssh -i "IAW2.pem" ubuntu@ec2-3-233-31-203.compute-1.amazonaws.com
-## cat id_rsa.pub | ssh -i "IAW2.pem" ubuntu@ec2-52-200-2-147.compute-1.amazonaws.com "cat - >> /home/ubuntu/.ssh/authorized_keys2"
+
+scp -i aws-ansible.pem ubuntu@54.173.51.24:/home/ubuntu/.ssh/id_rsa.pub .
+cat id_rsa.pub | ssh -i "IAW2.pem" ubuntu@ec2-52-200-2-147.compute-1.amazonaws.com "cat - >> /home/ubuntu/.ssh/authorized_keys2"
 
  certbot --nginx -m f.s.p282002@gamil.com --agree-tos --no-eff-email -d fspcorp.ddns.net

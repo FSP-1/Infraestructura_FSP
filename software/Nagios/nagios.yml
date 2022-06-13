@@ -3,7 +3,7 @@
   become: true
   roles: 
     - netdata
-    - HTPPS
+    - HTTPS
 
 - hosts: Nagios 
   become: true

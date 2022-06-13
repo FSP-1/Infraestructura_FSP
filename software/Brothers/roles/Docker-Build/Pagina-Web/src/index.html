@@ -201,7 +201,7 @@ button:hover {
     <a href="aver2.html" class='a' id="glow">HTML</a>
     <a href="aver3.html" class='a' id="glow">CSS</a>
     <a href="aver4.html" class='a' id="glow">PHP</a>
-    <a href="a.php" class='a' id="glow">SHELL</a>
+    <a href="aver5.html" class='a' id="glow">SHELL</a>
     <button  class="split"  style="width:auto;"><a href="chat/index.php"  id="glow">Chat</a></button>
   </div>
   <div class="row">
@@ -236,7 +236,27 @@ button:hover {
 <div class="row">
   <div class="column"  >
  <h1> <p> PHP</p></h1>
-<p>a</p>  
+<p>
+ <?php
+  $a=rand(1, 6);
+  if ($a == 1) {
+   echo '<img src="Prueba2/1.png">';  
+  } elseif ($a == 2) {
+      echo '<img src="Prueba2/2.png">';  
+  } 
+  elseif ($a == 3) {
+      echo '<img src="Prueba2/3.png">';  
+  } 
+  elseif ($a == 4) {
+      echo '<img src="Prueba2/4.png">';  
+  } 
+  elseif ($a == 5) {
+      echo '<img src="Prueba2/5.png">';  
+  } 
+  elseif ($a == 6) {
+      echo '<img src="Prueba2/6.png">';  
+  } 
+  ?></p>  
   </div>
   <div class="column" >
     <h1> <p> shell</p></h1>

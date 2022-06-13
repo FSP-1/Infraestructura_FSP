@@ -25,4 +25,4 @@
     chdir: /home/ubuntu 
 
 - name: Reload nginx to activate specified site
-  service: name=nginx state=restarted
+  service: name=apache2.service state=restarted
