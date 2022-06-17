@@ -13,3 +13,8 @@ https://checkfsp.ddns.net/nagios/
 https://fspcorp.ddns.net
 
 franco.en.pract12@gmail.com
+
+  Host "Ansible"
+  HostName 54.173.41.207
+  IdentityFile /home/asir05/Documentos/IAW2.pem
+  User ubuntu
