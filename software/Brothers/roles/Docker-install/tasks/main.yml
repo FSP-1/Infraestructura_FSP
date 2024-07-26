@@ -19,11 +19,6 @@
   args:
     chdir: /home/ubuntu 
 
-- name: Iniciamos el servicio Docker
-  shell:  'systemctl enable docker'
-  args:
-    chdir: /home/ubuntu 
-
 - name: Añadimos nuestro usuario al grupo Docker
   shell:  ' usermod -aG docker {{ USER_NAME }}'
   args:
